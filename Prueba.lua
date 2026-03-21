@@ -10,18 +10,18 @@ if not mainFrame then return end
 local rightFrame = mainFrame:FindFirstChildWhichIsA("ScrollingFrame")
 if not rightFrame then return end
 
--- 🔥 CONFIG BOTONES (MULTI)
+-- 🔥 CONFIG MULTI BOTONES
 local buttonsConfig = {
     ["RAMIREZ"] = "Target",
 }
 
--- 📦 LISTA (SCROLL)
+-- 📦 LISTA (AHORA DENTRO DEL HUB ✅)
 local listFrame = Instance.new("ScrollingFrame")
+listFrame.Parent = mainFrame -- 🔥 CAMBIO IMPORTANTE
 listFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
 listFrame.BorderSizePixel = 0
 listFrame.Visible = false
-listFrame.Parent = gui
-listFrame.ZIndex = 99999999
+listFrame.ZIndex = 999999
 listFrame.ScrollBarThickness = 6
 listFrame.CanvasSize = UDim2.new(0,0,0,0)
 
@@ -48,7 +48,7 @@ local function findButtons()
     return found
 end
 
--- 🔄 REFRESH LISTA
+-- 🔄 REFRESH
 local function refresh()
     for _,v in pairs(listFrame:GetChildren()) do
         if v:IsA("TextButton") then
@@ -79,16 +79,22 @@ local function refresh()
         end
     end
 
-    -- 📏 AUTO SCROLL
     listFrame.CanvasSize = UDim2.new(0,0,0,count * 26)
 end
 
--- 📍 LOOP PRINCIPAL
+-- 📍 LOOP
 task.spawn(function()
     while true do
         task.wait()
 
-        -- ❌ SI GUI SE OCULTA → CERRAR
+        -- ❌ SI CAMBIAS DE MENÚ → CERRAR
+        if targetButton and not targetButton:IsDescendantOf(rightFrame) then
+            listFrame.Visible = false
+            open = false
+            targetButton = nil
+        end
+
+        -- ❌ SI GUI CERRADA
         if not mainFrame.Visible then
             listFrame.Visible = false
             open = false
@@ -100,7 +106,6 @@ task.spawn(function()
             if not connectedButtons[btn] then
                 connectedButtons[btn] = true
 
-                -- 🔥 CLICK
                 btn.MouseButton1Click:Connect(function()
                     for name,var in pairs(buttonsConfig) do
                         if btn.Text:find(name) then
@@ -108,38 +113,34 @@ task.spawn(function()
                         end
                     end
 
-                    open = not open
-                    listFrame.Visible = open
-
-                    if open then
-                        refresh()
+                    -- 🔥 TOGGLE REAL
+                    if targetButton == btn and open then
+                        open = false
+                        listFrame.Visible = false
+                        return
                     end
 
                     targetButton = btn
+                    open = true
+                    listFrame.Visible = true
+                    refresh()
                 end)
             end
         end
 
-        -- 📍 SEGUIR BOTÓN ACTIVO
-        if targetButton and targetButton.Parent and targetButton.Visible then
+        -- 📍 POSICIÓN
+        if targetButton and targetButton.Visible then
             local pos = targetButton.AbsolutePosition
             local size = targetButton.AbsoluteSize
 
-            listFrame.Position = UDim2.new(0,pos.X,0,pos.Y + size.Y + 5)
+            listFrame.Position = UDim2.new(
+                0, pos.X - mainFrame.AbsolutePosition.X,
+                0, pos.Y - mainFrame.AbsolutePosition.Y + size.Y + 5
+            )
+
             listFrame.Size = UDim2.new(0,size.X,0,150)
         else
             listFrame.Visible = false
-        end
-    end
-end)
-
--- ❌ CLICK FUERA → CERRAR
-game:GetService("UserInputService").InputBegan:Connect(function(input,gp)
-    if gp then return end
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        if open then
-            listFrame.Visible = false
-            open = false
         end
     end
 end)
