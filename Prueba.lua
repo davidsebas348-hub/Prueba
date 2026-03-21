@@ -389,15 +389,20 @@ if hasTextbox then
     else
         button.Text = text
         button.BackgroundColor3 = Color3.fromRGB(20,20,20)
-
-        button.MouseButton1Click:Connect(function()
-            if not noGreenFlash[t  end)
+            button.MouseButton1Click:Connect(function()
+    if not noGreenFlash[text] then
+        local oldColor = button.BackgroundColor3
+        button.BackgroundColor3 = Color3.fromRGB(0,120,0)
+        task.delay(1,function()
+            if button then
+                button.BackgroundColor3 = oldColor
             end
-            callback()
         end)
     end
-end
-end
+    callback()
+end)
+
+        
 -- ======================
 -- SCROLL POR SUBMENU
 -- ======================
@@ -417,13 +422,13 @@ local scrollConfig = {
 -- MENUS
 -- ======================
 local menuOrder = {"MAIN","COMBAT","ESP","TELEPORT","COUNTER/BLOCK/ULT","ANTI","DODGE","AUTO FARM","FLING","Fps","YOUTUBE"}
-local menuData {
+local menuData = {
     ["COMBAT"] = {
         "KILL AURA",
         "RANGE",
         "TARGET PLAYER",
     },
-
+}
 
 local function clearFrame(frame)
     for _,v in pairs(frame:GetChildren()) do
