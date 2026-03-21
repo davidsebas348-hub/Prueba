@@ -391,14 +391,7 @@ if hasTextbox then
         button.BackgroundColor3 = Color3.fromRGB(20,20,20)
 
         button.MouseButton1Click:Connect(function()
-            if not noGreenFlash[text] then
-                local oldColor = button.BackgroundColor3
-                button.BackgroundColor3 = Color3.fromRGB(0,120,0)
-                task.delay(1,function()
-                    if button then
-                        button.BackgroundColor3 = oldColor
-                    end
-                end)
+            if not noGreenFlash[t  end)
             end
             callback()
         end)
@@ -424,46 +417,12 @@ local scrollConfig = {
 -- MENUS
 -- ======================
 local menuOrder = {"MAIN","COMBAT","ESP","TELEPORT","COUNTER/BLOCK/ULT","ANTI","DODGE","AUTO FARM","FLING","Fps","YOUTUBE"}
-local menuData = {
-    ["MAIN"] = {
-    "LOCALPLAYER",
-    "DESYNC",
-    "INVISIBLE",
-    "INFINITY STAMINA",
-    "INFINITY ZOOM",
-    "SPEED",
-    "JUMPPOWER",
-    "GRAVITY",
-    "RESET STATS",
-    "NOCLIP",
-    "INFINITI JUMP",
-    "FLY SPEED",
-    "FLY",
-},
+local menuData {
     ["COMBAT"] = {
         "KILL AURA",
         "RANGE",
         "TARGET PLAYER",
     },
-        
-    },
-    ["ANIMATIONS"] = {
-        "ELIGIR PACK",
-        "ELIGIR PACK V2",
-        "ELIGIR PACK (CODIGO)",
-        "GAZE EMOTE",
-    },
-    ["TELEPORT"] = {
-        "TP TOOL",
-    },
-    ["Fps"] = {
-        "Fps Boost"
-    },
-    ["YOUTUBE"] = {
-        "YOUTUBE:SBS HUB",
-        "SUSCRIBETE:)"
-    }
-}
 
 
 local function clearFrame(frame)
