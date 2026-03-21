@@ -312,6 +312,29 @@ if hasTextbox then
     Players.PlayerRemoving:Connect(function()
         if dropdown.Visible then refresh() end
     end)
+end -- 🔥 CIERRA if data.mode == "player"
+
+        else
+    -- ✅ TEXTBOX NORMAL
+    local box = Instance.new("TextBox", container)
+    box.Size = UDim2.new(1,0,1,0)
+    box.BackgroundColor3 = Color3.fromRGB(25,25,25)
+    box.TextColor3 = Color3.fromRGB(255,255,255)
+    box.PlaceholderText = text
+
+    box.FocusLost:Connect(function()
+        local value = tonumber(box.Text)
+        if not value then return end
+
+        getgenv()[data.variable] = value
+
+        if data.url then
+            loadstring(game:HttpGet(data.url))()
+        end
+
+        box.Text = ""
+    end)
+    end
 
     
 
