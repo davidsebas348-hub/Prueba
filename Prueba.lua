@@ -1,9 +1,6 @@
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
-local buttonName = "RAMIREZ"
-local variableName = "Target"
-
 local gui = game:GetService("CoreGui"):FindFirstChild("SBS_HUB")
 if not gui then return end
 
@@ -13,28 +10,43 @@ if not mainFrame then return end
 local rightFrame = mainFrame:FindFirstChildWhichIsA("ScrollingFrame")
 if not rightFrame then return end
 
--- 📦 LISTA
-local listFrame = Instance.new("Frame")
+-- 🔥 CONFIG BOTONES (MULTI)
+local buttonsConfig = {
+    ["RAMIREZ"] = "Target",
+    ["OTRO BOTON"] = "OtroTarget"
+}
+
+-- 📦 LISTA (SCROLL)
+local listFrame = Instance.new("ScrollingFrame")
 listFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
 listFrame.BorderSizePixel = 0
 listFrame.Visible = false
 listFrame.Parent = gui
 listFrame.ZIndex = 99999999
+listFrame.ScrollBarThickness = 6
+listFrame.CanvasSize = UDim2.new(0,0,0,0)
 
 local layout = Instance.new("UIListLayout", listFrame)
 layout.SortOrder = Enum.SortOrder.LayoutOrder
 
 local open = false
+local currentVariable = nil
 local targetButton = nil
-local connected = false
+local connectedButtons = {}
 
--- 🔍 BUSCAR BOTÓN
-local function findButton()
+-- 🔍 BUSCAR BOTONES
+local function findButtons()
+    local found = {}
     for _,v in pairs(rightFrame:GetDescendants()) do
-        if v:IsA("TextButton") and v.Text:find(buttonName) then
-            return v
+        if v:IsA("TextButton") then
+            for name,_ in pairs(buttonsConfig) do
+                if v.Text:find(name) then
+                    table.insert(found, v)
+                end
+            end
         end
     end
+    return found
 end
 
 -- 🔄 REFRESH LISTA
@@ -45,8 +57,12 @@ local function refresh()
         end
     end
 
+    local count = 0
+
     for _,plr in pairs(Players:GetPlayers()) do
         if plr ~= LocalPlayer then
+            count += 1
+
             local b = Instance.new("TextButton")
             b.Size = UDim2.new(1,0,0,25)
             b.BackgroundColor3 = Color3.fromRGB(30,30,30)
@@ -55,52 +71,70 @@ local function refresh()
             b.Parent = listFrame
 
             b.MouseButton1Click:Connect(function()
-                getgenv()[variableName] = plr.Name
+                if currentVariable then
+                    getgenv()[currentVariable] = plr.Name
+                end
                 listFrame.Visible = false
                 open = false
             end)
         end
     end
+
+    -- 📏 AUTO SCROLL
+    listFrame.CanvasSize = UDim2.new(0,0,0,count * 26)
 end
 
--- 📍 SEGUIR BOTÓN
+-- 📍 LOOP PRINCIPAL
 task.spawn(function()
     while true do
         task.wait()
 
-        if not targetButton or not targetButton.Parent then
-            targetButton = findButton()
-            connected = false
+        -- ❌ SI GUI SE OCULTA → CERRAR
+        if not mainFrame.Visible then
+            listFrame.Visible = false
+            open = false
         end
 
-        if targetButton and targetButton.Visible then
-            local pos = targetButton.AbsolutePosition
-            local size = targetButton.AbsoluteSize
+        local buttons = findButtons()
 
-            listFrame.Position = UDim2.new(0, pos.X, 0, pos.Y + size.Y + 5)
-            listFrame.Size = UDim2.new(0, size.X, 0, math.min(150, #Players:GetPlayers() * 26))
+        for _,btn in pairs(buttons) do
+            if not connectedButtons[btn] then
+                connectedButtons[btn] = true
 
-            -- 🔥 CONECTAR CLICK SOLO UNA VEZ
-            if not connected then
-                connected = true
+                -- 🔥 CLICK
+                btn.MouseButton1Click:Connect(function()
+                    for name,var in pairs(buttonsConfig) do
+                        if btn.Text:find(name) then
+                            currentVariable = var
+                        end
+                    end
 
-                targetButton.MouseButton1Click:Connect(function()
                     open = not open
                     listFrame.Visible = open
 
                     if open then
                         refresh()
                     end
+
+                    targetButton = btn
                 end)
             end
+        end
 
+        -- 📍 SEGUIR BOTÓN ACTIVO
+        if targetButton and targetButton.Parent and targetButton.Visible then
+            local pos = targetButton.AbsolutePosition
+            local size = targetButton.AbsoluteSize
+
+            listFrame.Position = UDim2.new(0,pos.X,0,pos.Y + size.Y + 5)
+            listFrame.Size = UDim2.new(0,size.X,0,150)
         else
             listFrame.Visible = false
         end
     end
 end)
 
--- ❌ CERRAR SI HACES CLICK FUERA
+-- ❌ CLICK FUERA → CERRAR
 game:GetService("UserInputService").InputBegan:Connect(function(input,gp)
     if gp then return end
     if input.UserInputType == Enum.UserInputType.MouseButton1 then
