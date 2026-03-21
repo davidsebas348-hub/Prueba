@@ -421,7 +421,6 @@ else
             callback(buttonStates[text])
         end)
 
-    
         else
     button.Text = text
     button.BackgroundColor3 = Color3.fromRGB(20,20,20)
@@ -441,10 +440,6 @@ else
         callback()
     end)
     end
-            
-
-
-        
 -- ======================
 -- SCROLL POR SUBMENU
 -- ======================
