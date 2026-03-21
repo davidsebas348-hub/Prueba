@@ -67,18 +67,20 @@ local textboxButtons = {
     },
 
     ["FLY SPEED"] = {
-    variable = "FLY_SPEED",
-    url = nil
+        variable = "FLY_SPEED",
+        url = nil
     },
-    ["RANGE"] = {
-    variable = "RANGE",
-    url = nil
-}
-}
 
+    ["RANGE"] = {
+        variable = "RANGE",
+        url = nil
+    },
+
+    -- 🔥 ESTE ES EL QUE FALTABA BIEN PUESTO
     ["TARGET PLAYER"] = {
-    variable = "TARGET",
-    mode = "player"
+        variable = "TARGET",
+        mode = "player"
+    }
 }
 local screenGui = Instance.new("ScreenGui", PlayerGui)
 local old = PlayerGui:FindFirstChild("SBS_HUB")
@@ -237,9 +239,8 @@ local function createButton(parent,text,y,callback)
 
 -- ======================
 -- TEXTBOX MODE
--- ===========
-
-  if hasTextbox then
+-- ======================
+if hasTextbox then
     button:Destroy()
 
     local data = textboxButtons[text]
@@ -356,7 +357,7 @@ local function createButton(parent,text,y,callback)
         end)
     end
 
-  else
+    else
     -- 🔹 BOTÓN NORMAL (TU SISTEMA)
     button.Size = UDim2.new(1,0,1,0)
 
@@ -444,17 +445,6 @@ local menuData = {
         "RANGE",
         "TARGET PLAYER",
     },
-    ["ESP"] = {
-        "ESP TO ALL THE TOKEN",
-        "ESP FOR ALL FOODS",
-        "ESP FOR EVERY BANDAGE AND MEDKIT",
-        "ESP A ALL AMMOS",
-        "ESP TO ALL KATANA",
-        "ESP TO ALL GUNS",
-        "ESP TO ALL THE CUBES",
-        "ESP TO OTHER OBJECTS",
-        "ESP NAME",
-        "ESP DISTANCE",
         
     },
     ["ANIMATIONS"] = {
@@ -591,30 +581,6 @@ for i,menu in ipairs(menuOrder) do
 
         elseif opt == "NOCLIP" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/NOCLIP/refs/heads/main/NOCLIP.lua"))()
-
-        elseif opt == "HITBOX EXTENDER" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text368/refs/heads/main/Text368.lua"))()
-
-        elseif opt == "Fps Boost" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Fps-Boost-/refs/heads/main/FPS_BOOST_UNIVERSAL.lua"))()
-
-        elseif opt == "YOUTUBE:SBS HUB" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Copiar-canal/refs/heads/main/Suscribete.lua"))()
-
-        elseif opt == "TP TOOL" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text331/refs/heads/main/Text331.lua"))()
-
-        elseif opt == "X-RAY" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text147/refs/heads/main/Text147.lua"))()
-
-        elseif opt == "KILL AURA" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text372/refs/heads/main/Text372.lua"))()
-
-        elseif opt == "INFINITY STAMINA" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text373/refs/heads/main/Text373.lua"))()
-                            
-        elseif opt == "Gaze Emote" then
-            loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Gaze-emote-74592"))()
 
         end
 
