@@ -442,6 +442,7 @@ local menuData = {
     ["COMBAT"] = {
         "KILL AURA",
         "RANGE",
+        "TARGET PLAYER",
     },
     ["ESP"] = {
         "ESP TO ALL THE TOKEN",
