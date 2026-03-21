@@ -397,26 +397,16 @@ else
 
 end
 end 
-end
 -- ======================
 -- SCROLL POR SUBMENU
 -- ======================
 local scrollConfig = {
-    ["MAIN"] = true,
     ["COMBAT"] = true,
-    ["ESP"] = true,
-    ["TELEPORT"] = true,
-    ["ANTI"] = true,
-    ["DODGE"] = true,
-    ["AUTO FARM"] = true,
-    ["FLING"] = true,
-    ["Fps"] = false,
-    ["YOUTUBE"] = false
 }
 -- =====================
 -- MENUS
 -- ======================
-local menuOrder = {"MAIN","COMBAT","ESP","TELEPORT","COUNTER/BLOCK/ULT","ANTI","DODGE","AUTO FARM","FLING","Fps","YOUTUBE"}
+local menuOrder = {"COMBAT"}
 local menuData = {
     ["COMBAT"] = {
         "KILL AURA",
