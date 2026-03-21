@@ -243,110 +243,79 @@ local function createButton(parent,text,y,callback)
 if hasTextbox then
     button:Destroy()
     local data = textboxButtons[text]
+        if data.mode == "player" then
 
-    -- 🔥 PLAYER SELECTOR
-    if data.mode == "player" then
+    -- BOTON IZQUIERDA (principal)
+    local leftBtn = Instance.new("TextButton", container)
+    leftBtn.Size = UDim2.new(0.5,0,1,0)
+    leftBtn.Text = "TARGET"
+    leftBtn.BackgroundColor3 = Color3.fromRGB(20,20,20)
+    leftBtn.TextColor3 = Color3.fromRGB(255,255,255)
 
-        local box = Instance.new("TextBox", container)
-        box.Size = UDim2.new(0.5,0,1,0)
-        box.BackgroundColor3 = Color3.fromRGB(25,25,25)
-        box.TextColor3 = Color3.fromRGB(255,255,255)
-        box.PlaceholderText = "Select Player"
-        box.Font = Enum.Font.GothamBold
-        box.TextSize = 14
+    -- BOTON DERECHA (nombre seleccionado)
+    local rightBtn = Instance.new("TextButton", container)
+    rightBtn.Size = UDim2.new(0.5,0,1,0)
+    rightBtn.Position = UDim2.new(0.5,0,0,0)
+    rightBtn.Text = "NONE"
+    rightBtn.BackgroundColor3 = Color3.fromRGB(30,30,30)
+    rightBtn.TextColor3 = Color3.fromRGB(255,255,255)
 
-        local btn = Instance.new("TextButton", container)
-        btn.Size = UDim2.new(0.5,0,1,0)
-        btn.Position = UDim2.new(0.5,0,0,0)
-        btn.Text = text
-        btn.BackgroundColor3 = Color3.fromRGB(20,20,20)
-        btn.TextColor3 = Color3.fromRGB(255,255,255)
+    -- DROPDOWN
+    local dropdown = Instance.new("ScrollingFrame", container)
+    dropdown.Position = UDim2.new(0,0,1,0)
+    dropdown.Size = UDim2.new(1,0,0,120)
+    dropdown.CanvasSize = UDim2.new(0,0,0,0)
+    dropdown.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    dropdown.ScrollBarThickness = 6
+    dropdown.BackgroundColor3 = Color3.fromRGB(15,15,15)
+    dropdown.Visible = false
+    dropdown.ZIndex = 50
 
-        local dropdown = Instance.new("Frame", container)
-        dropdown.Position = UDim2.new(0,0,1,0)
-        dropdown.Size = UDim2.new(0.5,0,0,0)
-        dropdown.BackgroundColor3 = Color3.fromRGB(15,15,15)
-        dropdown.Visible = false
-        dropdown.ZIndex = 50
+    local layout = Instance.new("UIListLayout", dropdown)
 
-        Instance.new("UIListLayout", dropdown)
-
-        local function refresh()
-            for _,v in pairs(dropdown:GetChildren()) do
-                if not v:IsA("UIListLayout") then
-                    v:Destroy()
-                end
+    -- REFRESH LISTA
+    local function refresh()
+        for _,v in pairs(dropdown:GetChildren()) do
+            if not v:IsA("UIListLayout") then
+                v:Destroy()
             end
-
-            local count = 0
-
-            for _,plr in pairs(Players:GetPlayers()) do
-                count += 1
-
-                local p = Instance.new("TextButton", dropdown)
-                p.Size = UDim2.new(1,0,0,25)
-                p.Text = plr.DisplayName
-                p.BackgroundColor3 = Color3.fromRGB(20,20,20)
-                p.TextColor3 = Color3.fromRGB(255,255,255)
-
-                p.MouseButton1Click:Connect(function()
-                    box.Text = plr.DisplayName
-                    getgenv()[data.variable] = plr
-                    dropdown.Visible = false
-                end)
-            end
-
-            dropdown.Size = UDim2.new(0.5,0,0,count*25)
         end
 
-        -- 🔥 AUTO UPDATE
-        Players.PlayerAdded:Connect(function()
-            if dropdown.Visible then refresh() end
-        end)
+        for _,plr in pairs(Players:GetPlayers()) do
+            local p = Instance.new("TextButton", dropdown)
+            p.Size = UDim2.new(1,0,0,25)
+            p.Text = plr.DisplayName
+            p.BackgroundColor3 = Color3.fromRGB(20,20,20)
+            p.TextColor3 = Color3.fromRGB(255,255,255)
 
-        Players.PlayerRemoving:Connect(function()
-            if dropdown.Visible then refresh() end
-        end)
-
-        box.Focused:Connect(function()
-            dropdown.Visible = true
-            refresh()
-        end)
-
-        box.FocusLost:Connect(function()
-            task.wait(0.1)
-            dropdown.Visible = false
-        end)
-
-        btn.MouseButton1Click:Connect(function()
-            if box.Text ~= "" then
-                getgenv()[data.variable] = box.Text
-            end
-        end)
-
-    else
-        -- ✅ TEXTBOX NORMAL
-        local box = Instance.new("TextBox", container)
-        box.Size = UDim2.new(1,0,1,0)
-        box.BackgroundColor3 = Color3.fromRGB(25,25,25)
-        box.TextColor3 = Color3.fromRGB(255,255,255)
-        box.PlaceholderText = text
-
-        box.FocusLost:Connect(function()
-            local value = tonumber(box.Text)
-            if not value then return end
-
-            getgenv()[data.variable] = value
-
-            if data.url then
-                loadstring(game:HttpGet(data.url))()
-            end
-
-            box.Text = ""
-        end)
+            p.MouseButton1Click:Connect(function()
+                rightBtn.Text = plr.DisplayName
+                getgenv()[data.variable] = plr
+                dropdown.Visible = false
+            end)
+        end
     end
 
-else
+    -- ABRIR/CERRAR
+    leftBtn.MouseButton1Click:Connect(function()
+        dropdown.Visible = not dropdown.Visible
+        if dropdown.Visible then
+            refresh()
+        end
+    end)
+
+    -- AUTO UPDATE
+    Players.PlayerAdded:Connect(function()
+        if dropdown.Visible then refresh() end
+    end)
+
+    Players.PlayerRemoving:Connect(function()
+        if dropdown.Visible then refresh() end
+    end)
+
+    
+
+                
     -- 🔹 BOTÓN NORMAL
     button.Size = UDim2.new(1,0,1,0)
 
