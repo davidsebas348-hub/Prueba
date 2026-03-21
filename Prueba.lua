@@ -240,79 +240,86 @@ local function createButton(parent,text,y,callback)
 -- ======================
 -- TEXTBOX MODE
 -- ======================
+-- ======================
+-- TEXTBOX MODE
+-- ======================
 if hasTextbox then
     button:Destroy()
     local data = textboxButtons[text]
-        if data.mode == "player" then
 
-    -- BOTON IZQUIERDA (principal)
-    local leftBtn = Instance.new("TextButton", container)
-    leftBtn.Size = UDim2.new(0.5,0,1,0)
-    leftBtn.Text = "TARGET"
-    leftBtn.BackgroundColor3 = Color3.fromRGB(20,20,20)
-    leftBtn.TextColor3 = Color3.fromRGB(255,255,255)
+    if data.mode == "player" then
+        -- BOTON IZQUIERDA (principal)
+        local leftBtn = Instance.new("TextButton", container)
+        leftBtn.Size = UDim2.new(0.5,0,1,0)
+        leftBtn.Text = "TARGET"
+        leftBtn.BackgroundColor3 = Color3.fromRGB(20,20,20)
+        leftBtn.TextColor3 = Color3.fromRGB(255,255,255)
 
-    -- BOTON DERECHA (nombre seleccionado)
-    local rightBtn = Instance.new("TextButton", container)
-    rightBtn.Size = UDim2.new(0.5,0,1,0)
-    rightBtn.Position = UDim2.new(0.5,0,0,0)
-    rightBtn.Text = "NONE"
-    rightBtn.BackgroundColor3 = Color3.fromRGB(30,30,30)
-    rightBtn.TextColor3 = Color3.fromRGB(255,255,255)
+        -- BOTON DERECHA (nombre seleccionado)
+        local rightBtn = Instance.new("TextButton", container)
+        rightBtn.Size = UDim2.new(0.5,0,1,0)
+        rightBtn.Position = UDim2.new(0.5,0,0,0)
+        rightBtn.Text = "NONE"
+        rightBtn.BackgroundColor3 = Color3.fromRGB(30,30,30)
+        rightBtn.TextColor3 = Color3.fromRGB(255,255,255)
 
-    -- DROPDOWN
-    local dropdown = Instance.new("ScrollingFrame", container)
-    dropdown.Position = UDim2.new(0,0,1,0)
-    dropdown.Size = UDim2.new(1,0,0,120)
-    dropdown.CanvasSize = UDim2.new(0,0,0,0)
-    dropdown.AutomaticCanvasSize = Enum.AutomaticSize.Y
-    dropdown.ScrollBarThickness = 6
-    dropdown.BackgroundColor3 = Color3.fromRGB(15,15,15)
-    dropdown.Visible = false
-    dropdown.ZIndex = 50
+        -- DROPDOWN
+        local dropdown = Instance.new("ScrollingFrame", container)
+        dropdown.Position = UDim2.new(0,0,1,0)
+        dropdown.Size = UDim2.new(1,0,0,120)
+        dropdown.CanvasSize = UDim2.new(0,0,0,0)
+        dropdown.AutomaticCanvasSize = Enum.AutomaticSize.Y
+        dropdown.ScrollBarThickness = 6
+        dropdown.BackgroundColor3 = Color3.fromRGB(15,15,15)
+        dropdown.Visible = false
+        dropdown.ZIndex = 50
 
-    local layout = Instance.new("UIListLayout", dropdown)
+        local layout = Instance.new("UIListLayout", dropdown)
 
-    -- REFRESH LISTA
-    local function refresh()
-        for _,v in pairs(dropdown:GetChildren()) do
-            if not v:IsA("UIListLayout") then
-                v:Destroy()
+        -- REFRESH LISTA
+        local function refresh()
+            for _,v in pairs(dropdown:GetChildren()) do
+                if not v:IsA("UIListLayout") then
+                    v:Destroy()
+                end
+            end
+
+            for _,plr in pairs(Players:GetPlayers()) do
+                local p = Instance.new("TextButton", dropdown)
+                p.Size = UDim2.new(1,0,0,25)
+                p.Text = plr.DisplayName
+                p.BackgroundColor3 = Color3.fromRGB(20,20,20)
+                p.TextColor3 = Color3.fromRGB(255,255,255)
+
+                p.MouseButton1Click:Connect(function()
+                    rightBtn.Text = plr.DisplayName
+                    getgenv()[data.variable] = plr
+                    dropdown.Visible = false
+                end)
             end
         end
 
-        for _,plr in pairs(Players:GetPlayers()) do
-            local p = Instance.new("TextButton", dropdown)
-            p.Size = UDim2.new(1,0,0,25)
-            p.Text = plr.DisplayName
-            p.BackgroundColor3 = Color3.fromRGB(20,20,20)
-            p.TextColor3 = Color3.fromRGB(255,255,255)
+        -- ABRIR/CERRAR
+        leftBtn.MouseButton1Click:Connect(function()
+            dropdown.Visible = not dropdown.Visible
+            if dropdown.Visible then
+                refresh()
+            end
+        end)
 
-            p.MouseButton1Click:Connect(function()
-                rightBtn.Text = plr.DisplayName
-                getgenv()[data.variable] = plr
-                dropdown.Visible = false
-            end)
-        end
+        -- AUTO UPDATE
+        Players.PlayerAdded:Connect(function()
+            if dropdown.Visible then refresh() end
+        end)
+
+        Players.PlayerRemoving:Connect(function()
+            if dropdown.Visible then refresh() end
+        end)
+
+        -- 🔥 IMPORTANTE: detener la función aquí para que no siga con el botón normal
+        return
     end
-
-    -- ABRIR/CERRAR
-    leftBtn.MouseButton1Click:Connect(function()
-        dropdown.Visible = not dropdown.Visible
-        if dropdown.Visible then
-            refresh()
-        end
-    end)
-
-    -- AUTO UPDATE
-    Players.PlayerAdded:Connect(function()
-        if dropdown.Visible then refresh() end
-    end)
-
-    Players.PlayerRemoving:Connect(function()
-        if dropdown.Visible then refresh() end
-    end)
-end -- 🔥 CIERRA if data.mode == "player"
+    end
 
         else
     -- ✅ TEXTBOX NORMAL
