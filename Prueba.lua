@@ -13,7 +13,6 @@ if not rightFrame then return end
 -- 🔥 CONFIG BOTONES (MULTI)
 local buttonsConfig = {
     ["RAMIREZ"] = "Target",
-    ["OTRO BOTON"] = "OtroTarget"
 }
 
 -- 📦 LISTA (SCROLL)
