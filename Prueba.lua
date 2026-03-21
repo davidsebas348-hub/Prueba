@@ -76,7 +76,7 @@ local textboxButtons = {
 }
 }
 
-["TARGET PLAYER"] = {
+    ["TARGET PLAYER"] = {
     variable = "TARGET",
     mode = "player"
 }
