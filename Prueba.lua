@@ -528,60 +528,7 @@ for i,menu in ipairs(menuOrder) do
         elseif opt == "ESP NAME" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text375/refs/heads/main/Text375.lua"))()
 
-        elseif opt == "" then
-            loadstring(game:HttpGet(""))()
-                            
-        elseif opt == "" then
-            loadstring(game:HttpGet(""))()
-                            
-        elseif opt == "" then
-            loadstring(game:HttpGet(""))()
-
-        elseif opt == "" then
-            loadstring(game:HttpGet(""))()
-                            
-        elseif opt == "" then
-            loadstring(game:HttpGet(""))()
-                            
-        elseif opt == "" then
-            loadstring(game:HttpGet(""))()
-
-        elseif opt == "" then
-            loadstring(game:HttpGet(""))()
-                            
-        elseif opt == "" then
-            loadstring(game:HttpGet(""))()
-                            
-        elseif opt == "" then
-            loadstring(game:HttpGet(""))()
-
-        elseif opt == "" then
-            loadstring(game:HttpGet(""))()
-                            
-        elseif opt == "" then
-            loadstring(game:HttpGet(""))()
-                            
-        elseif opt == "SHIFT LOCK" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Shift-lock/refs/heads/main/Shift_Lock_.lua"))()
-
-        elseif opt == "FLY" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Fly/refs/heads/main/Fly.lua"))()
-
-        elseif opt == "INFINITI JUMP" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/INFINITI-JUMP/refs/heads/main/Salto%20infinito.lua",true))()
-
-        elseif opt == "DESYNC" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text24/refs/heads/main/Text23.lua",true))()
-
-        elseif opt == "FULL BRIGHT" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text279/refs/heads/main/Text279.lua"))()
-
-        elseif opt == "LOCALPLAYER" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text8/refs/heads/main/Text8.lua"))()
-
-        elseif opt == "NOCLIP" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/NOCLIP/refs/heads/main/NOCLIP.lua"))()
-
+        
         end
 
     end)
