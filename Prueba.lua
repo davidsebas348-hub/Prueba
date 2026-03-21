@@ -13,6 +13,7 @@ if not mainFrame then return end
 local rightFrame = mainFrame:FindFirstChildWhichIsA("ScrollingFrame")
 if not rightFrame then return end
 
+-- 📦 LISTA
 local listFrame = Instance.new("Frame")
 listFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
 listFrame.BorderSizePixel = 0
@@ -25,6 +26,7 @@ layout.SortOrder = Enum.SortOrder.LayoutOrder
 
 local open = false
 local targetButton = nil
+local connected = false
 
 -- 🔍 BUSCAR BOTÓN
 local function findButton()
@@ -68,6 +70,7 @@ task.spawn(function()
 
         if not targetButton or not targetButton.Parent then
             targetButton = findButton()
+            connected = false
         end
 
         if targetButton and targetButton.Visible then
@@ -75,30 +78,35 @@ task.spawn(function()
             local size = targetButton.AbsoluteSize
 
             listFrame.Position = UDim2.new(0, pos.X, 0, pos.Y + size.Y + 5)
-            listFrame.Size = UDim2.new(0, size.X, 0, 120)
+            listFrame.Size = UDim2.new(0, size.X, 0, math.min(150, #Players:GetPlayers() * 26))
+
+            -- 🔥 CONECTAR CLICK SOLO UNA VEZ
+            if not connected then
+                connected = true
+
+                targetButton.MouseButton1Click:Connect(function()
+                    open = not open
+                    listFrame.Visible = open
+
+                    if open then
+                        refresh()
+                    end
+                end)
+            end
+
         else
             listFrame.Visible = false
         end
     end
 end)
 
--- 🖱️ DETECTAR CLICK GLOBAL
+-- ❌ CERRAR SI HACES CLICK FUERA
 game:GetService("UserInputService").InputBegan:Connect(function(input,gp)
     if gp then return end
     if input.UserInputType == Enum.UserInputType.MouseButton1 then
-
-        local btn = findButton()
-        if not btn then return end
-
-        local mouse = LocalPlayer:GetMouse()
-        if mouse.Target == nil then return end
-
-        -- toggle
-        open = not open
-        listFrame.Visible = open
-
         if open then
-            refresh()
+            listFrame.Visible = false
+            open = false
         end
     end
 end)
