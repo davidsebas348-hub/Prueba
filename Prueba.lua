@@ -18,7 +18,7 @@ listFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
 listFrame.BorderSizePixel = 0
 listFrame.Visible = false
 listFrame.Parent = gui
-listFrame.ZIndex = 999
+listFrame.ZIndex = 99999999
 
 local layout = Instance.new("UIListLayout", listFrame)
 layout.SortOrder = Enum.SortOrder.LayoutOrder
