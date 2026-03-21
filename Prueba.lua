@@ -393,53 +393,6 @@ else
         end)
     end
     end
-    -- 🔹 BOTÓN NORMAL (TU SISTEMA)
-    button.Size = UDim2.new(1,0,1,0)
-
-    local isToggle = not noToggleButtons[text]
-
-    if isToggle then
-        if buttonStates[text] == nil then
-            buttonStates[text] = false
-        end
-
-        local function updateVisual()
-            if buttonStates[text] then
-                button.Text = text.." [ON]"
-                button.BackgroundColor3 = Color3.fromRGB(0,120,0)
-            else
-                button.Text = text.." [OFF]"
-                button.BackgroundColor3 = Color3.fromRGB(20,20,20)
-            end
-        end
-
-        updateVisual()
-
-        button.MouseButton1Click:Connect(function()
-            buttonStates[text] = not buttonStates[text]
-            updateVisual()
-            callback(buttonStates[text])
-        end)
-
-        else
-    button.Text = text
-    button.BackgroundColor3 = Color3.fromRGB(20,20,20)
-
-    button.MouseButton1Click:Connect(function()
-        if not noGreenFlash[text] then
-            local oldColor = button.BackgroundColor3
-            button.BackgroundColor3 = Color3.fromRGB(0,120,0)
-
-            task.delay(1, function()
-                if button then
-                    button.BackgroundColor3 = oldColor
-                end
-            end)
-        end
-
-        callback()
-    end)
-    end
 -- ======================
 -- SCROLL POR SUBMENU
 -- ======================
@@ -455,7 +408,7 @@ local scrollConfig = {
     ["Fps"] = false,
     ["YOUTUBE"] = false
 }
--- ======================
+-- =====================
 -- MENUS
 -- ======================
 local menuOrder = {"MAIN","COMBAT","ESP","TELEPORT","COUNTER/BLOCK/ULT","ANTI","DODGE","AUTO FARM","FLING","Fps","YOUTUBE"}
