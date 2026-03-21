@@ -421,9 +421,26 @@ else
             callback(buttonStates[text])
         end)
 
-    else
-        button.Text = text
-        button.BackgroundColor3 = Color3.fromRGB(20,20,20)
+    
+        else
+    button.Text = text
+    button.BackgroundColor3 = Color3.fromRGB(20,20,20)
+
+    button.MouseButton1Click:Connect(function()
+        if not noGreenFlash[text] then
+            local oldColor = button.BackgroundColor3
+            button.BackgroundColor3 = Color3.fromRGB(0,120,0)
+
+            task.delay(1, function()
+                if button then
+                    button.BackgroundColor3 = oldColor
+                end
+            end)
+        end
+
+        callback()
+    end)
+    end
             
 
 
