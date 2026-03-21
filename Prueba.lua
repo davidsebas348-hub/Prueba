@@ -242,22 +242,18 @@ local function createButton(parent,text,y,callback)
 -- ======================
 if hasTextbox then
     button:Destroy()
-
     local data = textboxButtons[text]
 
-    -- 🔥 SI ES PLAYER SELECTOR
+    -- 🔥 PLAYER SELECTOR
     if data.mode == "player" then
 
         local box = Instance.new("TextBox", container)
         box.Size = UDim2.new(0.5,0,1,0)
-        box.Position = UDim2.new(0,0,0,0)
         box.BackgroundColor3 = Color3.fromRGB(25,25,25)
         box.TextColor3 = Color3.fromRGB(255,255,255)
         box.PlaceholderText = "Select Player"
-        box.Text = ""
         box.Font = Enum.Font.GothamBold
         box.TextSize = 14
-        box.BorderSizePixel = 0
 
         local btn = Instance.new("TextButton", container)
         btn.Size = UDim2.new(0.5,0,1,0)
@@ -265,20 +261,15 @@ if hasTextbox then
         btn.Text = text
         btn.BackgroundColor3 = Color3.fromRGB(20,20,20)
         btn.TextColor3 = Color3.fromRGB(255,255,255)
-        btn.Font = Enum.Font.GothamBold
-        btn.TextSize = 14
-        btn.BorderSizePixel = 0
 
-        -- dropdown
         local dropdown = Instance.new("Frame", container)
-        dropdown.Size = UDim2.new(0.5,0,0,0)
         dropdown.Position = UDim2.new(0,0,1,0)
+        dropdown.Size = UDim2.new(0.5,0,0,0)
         dropdown.BackgroundColor3 = Color3.fromRGB(15,15,15)
         dropdown.Visible = false
-        dropdown.BorderSizePixel = 0
         dropdown.ZIndex = 50
 
-        local UIList = Instance.new("UIListLayout", dropdown)
+        Instance.new("UIListLayout", dropdown)
 
         local function refresh()
             for _,v in pairs(dropdown:GetChildren()) do
@@ -297,21 +288,25 @@ if hasTextbox then
                 p.Text = plr.DisplayName
                 p.BackgroundColor3 = Color3.fromRGB(20,20,20)
                 p.TextColor3 = Color3.fromRGB(255,255,255)
-                p.Font = Enum.Font.Gotham
-                p.TextSize = 13
-                p.BorderSizePixel = 0
-                p.ZIndex = 51
 
                 p.MouseButton1Click:Connect(function()
                     box.Text = plr.DisplayName
-                    getgenv()[data.variable] = plr.Name
+                    getgenv()[data.variable] = plr
                     dropdown.Visible = false
-                    dropdown.Size = UDim2.new(0.5,0,0,0)
                 end)
             end
 
             dropdown.Size = UDim2.new(0.5,0,0,count*25)
         end
+
+        -- 🔥 AUTO UPDATE
+        Players.PlayerAdded:Connect(function()
+            if dropdown.Visible then refresh() end
+        end)
+
+        Players.PlayerRemoving:Connect(function()
+            if dropdown.Visible then refresh() end
+        end)
 
         box.Focused:Connect(function()
             dropdown.Visible = true
@@ -321,7 +316,6 @@ if hasTextbox then
         box.FocusLost:Connect(function()
             task.wait(0.1)
             dropdown.Visible = false
-            dropdown.Size = UDim2.new(0.5,0,0,0)
         end)
 
         btn.MouseButton1Click:Connect(function()
@@ -331,17 +325,12 @@ if hasTextbox then
         end)
 
     else
-        -- ✅ TU TEXTBOX NORMAL (NO CAMBIAR)
+        -- ✅ TEXTBOX NORMAL
         local box = Instance.new("TextBox", container)
         box.Size = UDim2.new(1,0,1,0)
-        box.Position = UDim2.new(0,0,0,0)
         box.BackgroundColor3 = Color3.fromRGB(25,25,25)
         box.TextColor3 = Color3.fromRGB(255,255,255)
         box.PlaceholderText = text
-        box.Text = ""
-        box.Font = Enum.Font.GothamBold
-        box.TextSize = 14
-        box.BorderSizePixel = 0
 
         box.FocusLost:Connect(function()
             local value = tonumber(box.Text)
@@ -357,7 +346,53 @@ if hasTextbox then
         end)
     end
 
+else
+    -- 🔹 BOTÓN NORMAL
+    button.Size = UDim2.new(1,0,1,0)
+
+    local isToggle = not noToggleButtons[text]
+
+    if isToggle then
+        if buttonStates[text] == nil then
+            buttonStates[text] = false
+        end
+
+        local function updateVisual()
+            if buttonStates[text] then
+                button.Text = text.." [ON]"
+                button.BackgroundColor3 = Color3.fromRGB(0,120,0)
+            else
+                button.Text = text.." [OFF]"
+                button.BackgroundColor3 = Color3.fromRGB(20,20,20)
+            end
+        end
+
+        updateVisual()
+
+        button.MouseButton1Click:Connect(function()
+            buttonStates[text] = not buttonStates[text]
+            updateVisual()
+            callback(buttonStates[text])
+        end)
+
     else
+        button.Text = text
+        button.BackgroundColor3 = Color3.fromRGB(20,20,20)
+
+        button.MouseButton1Click:Connect(function()
+            if not noGreenFlash[text] then
+                local oldColor = button.BackgroundColor3
+                button.BackgroundColor3 = Color3.fromRGB(0,120,0)
+                task.delay(1,function()
+                    if button then
+                        button.BackgroundColor3 = oldColor
+                    end
+                end)
+            end
+            callback()
+        end)
+    end
+    end
     -- 🔹 BOTÓN NORMAL (TU SISTEMA)
     button.Size = UDim2.new(1,0,1,0)
 
@@ -389,18 +424,8 @@ if hasTextbox then
     else
         button.Text = text
         button.BackgroundColor3 = Color3.fromRGB(20,20,20)
-            button.MouseButton1Click:Connect(function()
-    if not noGreenFlash[text] then
-        local oldColor = button.BackgroundColor3
-        button.BackgroundColor3 = Color3.fromRGB(0,120,0)
-        task.delay(1,function()
-            if button then
-                button.BackgroundColor3 = oldColor
-            end
-        end)
-    end
-    callback()
-end)
+            
+
 
         
 -- ======================
