@@ -554,11 +554,25 @@ elseif isDoubleRight then
 
 else
     -- botón normal
-    container.Size = finalSize
+    if gridMenus[currentMenuName] then
+    local index = getgenv().GRID_INDEX or 1
+
+    local col = (index - 1) % 5
+    local row = math.floor((index - 1) / 5)
+
+    container.Size = UDim2.new(0,80,0,30)
+    container.Position = UDim2.new(
+        0, 10 + (col * 90),
+        0, 40 + (row * 40)
+    )
+
+    getgenv().GRID_INDEX = index + 1
+else
     container.Position = UDim2.new(
         0, 10 + extraX,
         0, y + extraY
     )
+        end
 end
     container.BackgroundTransparency = 1
 
@@ -1096,10 +1110,11 @@ for left, right in pairs(doubleButtons) do
 end
 
 -- solo bajar después del botón derecho o botón normal
-if not isDoubleLeft then
-    oy += 40 + offsetY
+if not useGrid then
+    if not isDoubleLeft then
+        oy += 40 + offsetY
+    end
 end
-
 local customTitle = customTitles[opt]
 
 if customTitle then
