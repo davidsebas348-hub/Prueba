@@ -1,4 +1,3 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text338/refs/heads/main/Text338.lua"))() -- opcional para los fakes tools
 
 -- ======================
 -- SBS HUB COMPLETO FINAL  (Build your escape))
@@ -834,14 +833,14 @@ local menuData = {
         "TP TO PLAYER",
     },
     ["OP"] = {
-        "GODMODE",
-        "SELF REVIVE",
-        "1 = 20",
-        "LAG SERVER (NO LOBBY)",
-        "INSTANT REVIVE",
-        "EXTEND BREAK",
-        "SPEED BOOST",    
-        "SHOW PANELS",
+        "GODMDE",
+        "SELF EVIVE",
+        "1  20",
+        "LAG ERVER (NO LOBBY)",
+        "ISANT REVIVE",
+        "ETEND BREAK",
+        "SEED BOOST",    
+        "HOW PANELS",
     },
     ["AUTO FARM"] = {
         "AUTO FARM ESCAPES",
