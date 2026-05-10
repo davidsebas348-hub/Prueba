@@ -516,6 +516,20 @@ local function createButton(parent,text,y,callback)
 
     local container = Instance.new("Frame", parent)
     local custom = BUTTON_CUSTOM[text]
+  local isQuad = false
+
+for _, group in ipairs(quadButtons) do
+    for _, btn in ipairs(group) do
+        if text == btn then
+            isQuad = true
+            break
+        end
+    end
+end
+
+if isQuad then
+    extraY = 0
+  end
 
     local finalSize = BUTTON_SIZE
     local extraX = 0
@@ -545,7 +559,7 @@ for _, group in ipairs(quadButtons) do
                 width * (index - 1),
                 10,
                 0,
-                y
+                y + 0
             )
 
             break
