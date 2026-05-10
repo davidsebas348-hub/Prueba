@@ -1,7 +1,7 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text155/refs/heads/main/Text155.lua"))() -- Detectar Rol (importante)
                             
 -- ======================
--- SBS HUB COMPLETO FINAL  (MM2)
+-- SBS HUB COMPLETO FINAL  (M
 -- ======================
 repeat task.wait() until game:IsLoaded()
 
@@ -553,13 +553,13 @@ for _, group in ipairs(quadButtons) do
             local width = 0.25
             local spacing = 5
 
-            container.Size = UDim2.new(width, -spacing, 0, 30)
+            container.Size = UDim2.new(width, -5, 0, 30)
 
             container.Position = UDim2.new(
                 width * (index - 1),
-                10,
                 0,
-                y + 0
+                0,
+                y
             )
 
             break
