@@ -1,6 +1,7 @@
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text155/refs/heads/main/Text155.lua"))() -- Detectar Rol (importante)
+                            
 -- ======================
--- SBS HUB COMPLETO FINAL  (Build your escape))
+-- SBS HUB COMPLETO FINAL  (MM2)
 -- ======================
 repeat task.wait() until game:IsLoaded()
 
@@ -24,13 +25,6 @@ local numericBoxes = {
     ["TRASPARENCY 0-1"] = true,
     ["FOV SIZE"] = true,
     ["BULLET SIZE"] = true,
-    ["1 = 20"] = true,
-}
-
-local gridMenus = {
-    ["OP"] = true, -- 👈 aquí pones el submenu que quieres en 5x5
-    -- puedes agregar más:
-    -- ["MAIN"] = true
 }
 -- tener 2 botones en una ocupando espacio de 1 botón 
 local doubleButtons = {
@@ -40,8 +34,8 @@ local doubleButtons = {
 
 -- poner título arriba de tal botón 
 local topTitles = {
-    ["INSTANT REVIVE"] = "FREE GAMEPASS",
-    ["SPEED"] = "LOCALPLAYER",
+    ["SPEED"] = "MOVEMENT SETTINGS",
+    ["TRASPARENCY 0-"] = "OP",
 }
 
 -- poner títulos abajo de tal botón
@@ -129,7 +123,7 @@ local BUTTON_GLOBAL_Y = 0
 -- ======================
 
 local BUTTON_CUSTOM = {
-    ["DELAY"] = {
+    ["MODE: NO EQUIPPED KNIFE"] = {
         size = UDim2.new(1, -50, 0, 27),
         x = 20,
         y = -6
@@ -141,7 +135,7 @@ local BUTTON_CUSTOM = {
         y = -6
     },
 
-    ["POWER"] = {
+    ["BULLET TRACERS"] = {
         size = UDim2.new(1, -50, 0, 27),
         x = 20,
         y = -6
@@ -168,8 +162,8 @@ local BUTTON_CUSTOM = {
 
 -- TITULOS ARRIBA DE BOTONES (titulos simples)
 local buttonTitles = {
-    ["1 = 20"] = "MODIFY TIMER",  
-    ["LAG SERVER (NO LOBBY)"] = "TROLL",
+    ["SPED"] = "PLAYER",
+    ["AUTO DESTROY TO ALL OBJECTS"] = "TROLL",
     ["JUMP(BUTTON)"] = "JUMP PAD",
 
     ["TP TOOL"] = "CLICK TP",
@@ -213,26 +207,24 @@ local buttonStates = getgenv().SBS_BUTTON_STATES
 local noToggleButtons = {
     ["YOUTUBE:SBS HUB"] = true,
     ["SUSCRIBETE:)"] = true,
-    ["GODMODE"] = true,
+    ["SILENT AIM"] = true,
     ["LOCALPLAYER"] = true,
     ["RESET STATS"] = true,
     ["DESNC"] = true,
     ["Fps Boost"] = true,
-    ["AUTO FARM ESCAPES"] = true,
-    ["LAG SERVER (NO LOBBY)"] = true,
+    ["LOBBY"] = true,
+    ["MAP"] = true,
     ["FLING PLAYER"] = true,
-    ["SPAWN TRAP"] = true,
-    ["GET THE TOOL SPORTS DRINK"] = true,
-    ["GET THE TOOL TRAP"] = true,
-    ["GET THE TOOL TIME MACHINE"] = true,  
-    ["GET THE TOOL SPAWN DECOY"] = true,
-    ["GET THE TOOL GHOST"] = true,
-    ["EXTEND BREAK"] = true,
-    ["INSTANT REVIVE"] = true,
-    ["SPEED BOOST"] = true,
-    ["SHOW PANELS"] = true,  
-    ["TP TO PLAYER"] = true,
-    ["AUTO PONER PANELS"] = true,
+    ["GRAB GUN"] = true,
+    ["SHOOT THE MURDERER"] = true,
+    [""] = true,
+    [""] = true,  
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    ["BULLET TRACERS"] = true,
+    ["TP TO PLAYER"] = true,  
 }
 
 -- BOTONES SIN EFECTO VERDE
@@ -278,8 +270,8 @@ local textboxButtons = {
     variable = "PLAYER",
     url = nil
     },
-    ["DELAY"] = {
-    variable = "TrapDelay",
+    ["TRASPARENCY 0-1"] = {
+    variable = "HITBOX_TRANSPARENCY",
     url = nil
     },
     ["PLAYER NAME."] = {
@@ -298,12 +290,8 @@ local textboxButtons = {
     variable = "XRAY_TRANSPARENCY",
     url = "https://raw.githubusercontent.com/davidsebas348-hub/Text433/refs/heads/main/Text433.lua"
     },
-    ["1 = 20"] = {
-    variable = "Timer",
-    url = "https://raw.githubusercontent.com/davidsebas348-hub/Text343/refs/heads/main/Text343.lua"
-    },
-    ["POWER"] = {
-    variable = "TouchFlingForce",
+    ["JUMP POWER OF THE DOUBLE JUMP"] = {
+    variable = "FAKE_JUMP_POWER",
     url = nil
 }
 }
@@ -399,7 +387,7 @@ end
 local title = Instance.new("TextLabel", mainFrame)
 title.Size = UDim2.new(1,0,0,50)
 title.BackgroundColor3 = Color3.fromRGB(0,0,0)
-title.Text = "SBS HUB | Build Your Escape"
+title.Text = "SBS HUB | Pistol Arena"
 title.TextColor3 = Color3.fromRGB(255,255,255)
 title.Font = Enum.Font.GothamBold
 title.TextScaled = true
@@ -553,25 +541,11 @@ elseif isDoubleRight then
 
 else
     -- botón normal
-    if gridMenus[currentMenuName] then
-    local index = getgenv().GRID_INDEX or 1
-
-    local col = (index - 1) % 5
-    local row = math.floor((index - 1) / 5)
-
-    container.Size = UDim2.new(0,80,0,30)
-    container.Position = UDim2.new(
-        0, 10 + (col * 90),
-        0, 40 + (row * 40)
-    )
-
-    getgenv().GRID_INDEX = index + 1
-else
+    container.Size = finalSize
     container.Position = UDim2.new(
         0, 10 + extraX,
         0, y + extraY
     )
-        end
 end
     container.BackgroundTransparency = 1
 
@@ -777,8 +751,8 @@ end
 -- ======================
 local scrollConfig = {
     ["MAIN"] = true,
-    ["OP"] = true,
-    ["TOOL"] = true,
+    ["ESP"] = true,
+    ["INOCENT"] = true,
     ["SHERIFF"] = true,
     ["MURDERER"] = true,
     ["TELEPORT"] = true,
@@ -791,27 +765,31 @@ local scrollConfig = {
 -- ======================
 -- MENUS
 -- ======================
-local menuOrder = {"MAIN","OP","GAMEPASS","PANELS","GUARD","TOOL","TRAP","PROXIMITY PROMPT","TELEPORT","FLING","AUTO FARM","Fps","YOUTUBE"}
+local menuOrder = {"MAIN","ESP","INOCENT","SHERIFF","MURDERER","TELEPORT","FAKEBOMB","FLING","AUTO FARM","Fps","YOUTUBE"}
 local menuData = {
     ["MAIN"] = {
     "DESYNC",
     "INVISIBLE",
+    "JUMP(BUTTON)",
     "SPEED",
-    "JUMPPOWER",  
+    "JUMPPOWER",
     "GRAVITY",
     "RESET STATS",
     "NOCLIP",
     "INFINITI JUMP",
     "FLY SPEED",
     "FLY",
+},
+    ["MURDERER"] = {
+        "KILL ALL",
+        "KILL SHERIFF",
+        "HITBOX EXTENDER",
+        "SIZE",
+        "TRASPARENCY 0-1",
     },
-    ["PANELS"] = {
-        "AUTO COLLECT PANELS",
-        "AUTO PONER PANELS",
-        "ESP PANELS",
-    },
-    ["GUARD"] = {
-        "TRAP GUARD",
+    ["INOCENT"] = {
+        "GRAB GUN",
+        "AUTO GRAB GUN",
     },
     ["FLING"] = {
         "TOUCH FLING",
@@ -819,43 +797,41 @@ local menuData = {
         "PLAYER NAME.",
         "FLING PLAYER",
     },
-    ["TOOL"] = {
-        "NO COOLDOWN TOOL (NO FAKE TOOL)",
-        "GET THE TOOL TRAP",
-        "GET THE TOOL SPORTS DRINK",
-        "GET THE TOOL TIME MACHINE",
-        "GET THE TOOL GHOST",
-        "GET THE TOOL SPAWN DECOY", 
+    ["ESP"] = {
+        "ESP PLAYERS",
+        "ESP GUN",
+        "NO ESP TO ME",
+        "ESP NAME",
+        "ESP ABILITY",
+        "X-RAY",
+        "XRAY-TRANSPARENCY",
+        
     },
     ["TELEPORT"] = {
-        "TP TOOL",
+        "MAP",
+        "LOBBY",
         "PLAYER NAME",
         "TP TO PLAYER",
     },
-    ["OP"] = {
-        "GODMDE",
-        "SELF EVIVE",
-        "1  20",
-        "LAG ERVER (NO LOBBY)",
-        "ISANT REVIVE",
-        "ETEND BREAK",
-        "SEED BOOST",    
-        "HOW PANELS",
+    ["FAKEBOMB"] = {
+        "AUTO DOUBLE JUMP",
+        "AUTO DOUBLE JUMP (FAST)",
+        "AUTO DOUBLE JUMP (EQUIP TOOL)",
+        "MODE: NORMAL",
+        "JUMP POWER OF THE DOUBLE JUMP",  
+        "AUTO EQUIP FAKEBOMB",
     },
     ["AUTO FARM"] = {
-        "AUTO FARM ESCAPES",
+        "AUTO FARM KILLS (beta)",
     },
-    ["TRAP"] = {
-        "SPAWN TRAP",
-        "AUTO SPAWN TRAP",
-        "DELAY",
-        "ANTI TRAPS",
+    ["SHERIFF"] = {
+        "SHOOT THE MURDERER",
+        "SHOOT THE MURDERER (BUTTON)",
+        "¿ONLY VISIBLE?",
+        "AUTO SHOOT THE MURDERER",
+        "MODE: NO EQUIPPED KNIFE",
     },
-    ["PROXIMITY PROMPT"] = {
-        "INSTANT PROMPT",
-        "NOCLIP PROMPT",
-    },
-    ["FPS"] = {
+    ["Fps"] = {
         "Fps Boost"
     },
     ["YOUTUBE"] = {
@@ -898,7 +874,6 @@ for i,menu in ipairs(menuOrder) do
         titleLabel.TextSize = 18
 
         local oy = 40
-        local index = 0
 
         for _,opt in ipairs(menuData[menu]) do
 
@@ -933,103 +908,98 @@ if topTitle then
     oy += 35 -- 🔥 baja el botón
                 end
 
-    local useGrid = gridMenus[menu]
-
-if useGrid then
-    index += 1
-
-    local col = (index - 1) % 5
-    local row = math.floor((index - 1) / 5)
-
-    local x = 10 + (col * 90) -- ancho de cada botón
-    local yPos = 40 + (row * 40)
-
-    createButton(rightFrame, opt, yPos, function(state)
-        -- callback normal (no cambies esto)
+    createButton(rightFrame,opt,oy,function(state)
 
         if opt == "RESET STATS" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Reset-speed-jumpPower-y-gravedad-/refs/heads/main/Reset.lua"))()
 
-        elseif opt == "GODMODE" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text347/refs/heads/main/Text347.lua"))()
+        elseif opt == "ESP PLAYERS" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text154/refs/heads/main/Text154.lua"))()
             
-        elseif opt == "" then
+        elseif opt == "NO ESP TO ME" then
             loadstring("getgenv().HIGHLIGHT_ME = not getgenv().HIGHLIGHT_ME")()
                             
-        elseif opt == "SELF REVIVE" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text337/refs/heads/main/Text337.lua"))()
+        elseif opt == "ESP NAME" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text418/refs/heads/main/Text418.lua"))()
                             
-        elseif opt == "AUTO COLLECT PANELS" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text10/refs/heads/main/Text10.lua"))()
+        elseif opt == "ESP DISTANCE" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text419/refs/heads/main/Text419.lua"))()
                             
-        elseif opt == "AUTO PONER PANELS" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text12/refs/heads/main/Text12"))()
+        elseif opt == "ESP TRACERS" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text420/refs/heads/main/Text420.lua"))()
 
-        elseif opt == "GET THE TOOL TIME MACHINE" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text346/refs/heads/main/Text346.lua"))()
+        elseif opt == "KILL ALL" then
+            getgenv().TARGET = "All"
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text16/refs/heads/main/Text16.lua"))()
                             
-        elseif opt == "GET THE TOOL SPORTS DRINK" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text345/refs/heads/main/Text345.lua"))()
+        elseif opt == "KILL SHERIFF" then
+            getgenv().TARGET = "Sheriff"
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text16/refs/heads/main/Text16.lua"))()
                             
-        elseif opt == "GET THE TOOL TRAP" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text344/refs/heads/main/Text344.lua"))()
+        elseif opt == "KILL PLAYER" then
+            loadstring(game:HttpGet(""))()
 
         elseif opt == "INVISIBLE" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text427/refs/heads/main/Text427.lua"))()
                             
-        elseif opt == "GET THE TOOL SPAWN DECOY" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text357/refs/heads/main/Text357.lua"))()
+        elseif opt == "MAP" then
+            getgenv().TP_MODE = "JUMPPAD"
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text430/refs/heads/main/Text430.lua"))()
                             
         elseif opt == "DESYNC" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text428/refs/heads/main/Text428.lua"))()
 
-        elseif opt == "GET THE TOOL GHOST" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text220/refs/heads/main/Text220.lua"))()
+        elseif opt == "AUTO KILL SHERIFF" then
+            loadstring(game:HttpGet(""))()
                             
-        elseif opt == "AUTO FARM ESCAPES" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text340/main/Text340.lua"))()
+        elseif opt == "LOBBY" then
+            getgenv().TP_MODE = "LOBBY"
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text430/refs/heads/main/Text430.lua"))()
 
-        elseif opt == "LAG SERVER (NO LOBBY)" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text355/refs/heads/main/Text355.lua"))()
+        elseif opt == "AUTO DOUBLE JUMP" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text318/refs/heads/main/Text318.lua"))()
                             
-        elseif opt == "ANTI TRAPS" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text348/refs/heads/main/Text348.lua"))()
+        elseif opt == "AUTO DOUBLE JUMP (FAST)" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text319/refs/heads/main/Text319.lua"))()
                             
-        elseif opt == "SPAWN TRAP" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text353/refs/heads/main/Text353.lua"))()
+        elseif opt == "HITBOX EXTENDER" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text368/refs/heads/main/Text368.lua"))()
 
-        elseif opt == "AUTO SPAWN TRAP" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text354/refs/heads/main/Text354.lua"))()
+        elseif opt == "SHOOT THE MURDERER (BUTTON)" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text27/refs/heads/main/Text27.lua"))()
                             
-        elseif opt == "" then
+        elseif opt == "¿ONLY VISIBLE?" then
             loadstring("getgenv().OnlyVisible = not getgenv().OnlyVisible")()
                             
-        elseif opt == "NO COOLDOWN TOOL (NO FAKE TOOL)" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text356/refs/heads/main/Text356.lua"))()
+        elseif opt == "MAP" then
+            getgenv().TeleportMode = "mapa"
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text327/refs/heads/main/Text327.lua"))()
 
-        elseif opt == "INSTANT PROMPT" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text265/refs/heads/main/Text265.lua"))()
+        elseif opt == "LOBBY" then
+            getgenv().TeleportMode = "lobby"
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text327/refs/heads/main/Text327.lua"))()
                             
-        elseif opt == "NOCLIP PROMPT" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text269/refs/heads/main/Text269.lua"))()
+        elseif opt == "GRAB GUN" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text152/refs/heads/main/Text152.lua"))()
                             
-        elseif opt == "TRAP GUARD" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text213/refs/heads/main/Text213.lua"))()
+        elseif opt == "AUTO SHOOT THE MURDERER" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text146/refs/heads/main/Text146.lua"))()
 
-        elseif opt == "INSTANT REVIVE" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text336/refs/heads/main/Text336.lua"))()
+        elseif opt == "" then
+            loadstring(game:HttpGet(""))()
                             
-        elseif opt == "EXTEND BREAK" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text339/refs/heads/main/Text339.lua"))()
+        elseif opt == "" then
+            getgenv().TP_MODE = "LOBBY"
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text430/refs/heads/main/Text430.lua"))()
               
-        elseif opt == "SPEED BOOST" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text341/refs/heads/main/Text341.lua"))()
+        elseif opt == "AUTO GRAB GUN" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text153/refs/heads/main/Text153.lua"))()
                             
         elseif opt == "FLING PLAYER" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text156/refs/heads/main/Text156.lua"))()
 
-        elseif opt == "SHOW PANELS" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text342/refs/heads/main/Text342.lua"))()
+        elseif opt == "AIMBOT LIGERO" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text422/refs/heads/main/Text422.lua"))()
                             
         elseif opt == "AIMBOT INSTANT" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text423/refs/heads/main/Text423.lua"))()
@@ -1061,20 +1031,11 @@ if useGrid then
         elseif opt == "NOCLIP" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/NOCLIP/refs/heads/main/NOCLIP.lua"))()
 
-        elseif opt == "ESP PANELS" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text211/refs/heads/main/Text211.lua"))()
+        elseif opt == "HITBOX EXTENDER" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text368/refs/heads/main/Text368.lua"))()
 
         elseif opt == "Fps Boost" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Fps-Boost-/refs/heads/main/FPS_BOOST_UNIVERSAL.lua"))()
-
-        elseif opt == "" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/NOCLIP/refs/heads/main/NOCLIP.lua"))()
-
-        elseif opt == "TOUCH FLING" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text281/refs/heads/main/Text281.lua"))()
-
-        elseif opt == "REVIVE TEAM (GUI)" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Revive-gui/refs/heads/main/Op_gui.lua"))()
 
         elseif opt == "YOUTUBE:SBS HUB" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Copiar-canal/refs/heads/main/Suscribete.lua"))()
@@ -1085,16 +1046,6 @@ if useGrid then
         end
 
     end)
-                    else
-    -- modo normal (lista vertical)
-    createButton(rightFrame, opt, oy, function(state)
-
-        -- 🔥 MISMO CALLBACK AQUÍ TAMBIÉN
-
-                            end)
-
-    oy += 40
-                end
     local custom = BUTTON_CUSTOM[opt]
 local offsetY = custom and custom.y or 0
 
@@ -1109,11 +1060,10 @@ for left, right in pairs(doubleButtons) do
 end
 
 -- solo bajar después del botón derecho o botón normal
-if not useGrid then
-    if not isDoubleLeft then
-        oy += 40 + offsetY
-    end
+if not isDoubleLeft then
+    oy += 40 + offsetY
 end
+
 local customTitle = customTitles[opt]
 
 if customTitle then
