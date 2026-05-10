@@ -27,11 +27,21 @@ local numericBoxes = {
     ["BULLET SIZE"] = true,
 }
 -- tener 2 botones en una ocupando espacio de 1 botón 
-local doubleButtons = {
-    ["MAP"] = "LOBBY",
-    ["PLAYER NAME"] = "TP TO PLAYER"
-}
+ local quadButtons = {
+    {
+        "BTN1",
+        "BTN2",
+        "BTN3",
+        "BTN4"
+    },
 
+    {
+        "MAP",
+        "LOBBY",
+        "PLAYER NAME",
+        "TP TO PLAYER"
+    }
+}
 -- poner título arriba de tal botón 
 local topTitles = {
     ["SPEED"] = "MOVEMENT SETTINGS",
@@ -519,28 +529,31 @@ local function createButton(parent,text,y,callback)
         extraY = custom.y or 0
     end
 
-    local isDoubleLeft = doubleButtons[text] ~= nil
-local isDoubleRight = false
+    local foundQuad = false
 
-for left, right in pairs(doubleButtons) do
-    if text == right then
-        isDoubleRight = true
-        break
+for _, group in ipairs(quadButtons) do
+    for index, btnName in ipairs(group) do
+        if text == btnName then
+            foundQuad = true
+
+            local width = 0.25
+            local spacing = 5
+
+            container.Size = UDim2.new(width, -spacing, 0, 30)
+
+            container.Position = UDim2.new(
+                width * (index - 1),
+                10,
+                0,
+                y
+            )
+
+            break
+        end
     end
 end
 
-if isDoubleLeft then
-    -- botón izquierdo
-    container.Size = UDim2.new(0.5, -15, 0, 30)
-    container.Position = UDim2.new(0, 10, 0, y)
-
-elseif isDoubleRight then
-    -- botón derecho
-    container.Size = UDim2.new(0.5, -15, 0, 30)
-    container.Position = UDim2.new(0.5, 5, 0, y)
-
-else
-    -- botón normal
+if not foundQuad then
     container.Size = finalSize
     container.Position = UDim2.new(
         0, 10 + extraX,
@@ -1049,18 +1062,17 @@ if topTitle then
     local custom = BUTTON_CUSTOM[opt]
 local offsetY = custom and custom.y or 0
 
-local isDoubleLeft = doubleButtons[opt] ~= nil
-local isDoubleRight = false
+local skipY = false
 
-for left, right in pairs(doubleButtons) do
-    if opt == right then
-        isDoubleRight = true
-        break
+for _, group in ipairs(quadButtons) do
+    for i = 1, #group - 1 do
+        if opt == group[i] then
+            skipY = true
+        end
     end
 end
 
--- solo bajar después del botón derecho o botón normal
-if not isDoubleLeft then
+if not skipY then
     oy += 40 + offsetY
 end
 
