@@ -38,7 +38,7 @@ local numericBoxes = {
     {
         "MAP",
         "LOBBY",
-        "PLAYER NAME",
+        "PLAYER NAM",
         "TP TO PLAYER"
     }
 }
@@ -550,17 +550,17 @@ for _, group in ipairs(quadButtons) do
         if text == btnName then
             foundQuad = true
 
-            local width = 0.25
-            local spacing = 5
+            local width = 0.24
+local spacing = 5
 
-            container.Size = UDim2.new(width, -5, 0, 30)
+container.Size = UDim2.new(width, -spacing, 0, 30)
 
-            container.Position = UDim2.new(
-                width * (index - 1),
-                0,
-                0,
-                y
-            )
+container.Position = UDim2.new(
+    (width * (index - 1)),
+    (spacing * (index - 1)),
+    0,
+    y
+)
 
             break
         end
@@ -837,7 +837,7 @@ local menuData = {
     ["TELEPORT"] = {
         "MAP",
         "LOBBY",
-        "PLAYER NAME",
+        "PLAYER NAM",
         "TP TO PLAYER",
     },
     ["FAKEBOMB"] = {
@@ -1079,17 +1079,17 @@ local offsetY = custom and custom.y or 0
 local skipY = false
 
 for _, group in ipairs(quadButtons) do
-    for i = 1, #group - 1 do
+    for i = 1, #group do
         if opt == group[i] then
-            skipY = true
+            if i ~= #group then
+                skipY = true
+            end
         end
     end
 end
-
-if not skipY then
+        if not skipY then
     oy += 40 + offsetY
-end
-
+        end
 local customTitle = customTitles[opt]
 
 if customTitle then
