@@ -65,6 +65,39 @@ local iconPositions = {
 
 }
 
+
+--==================================================
+-- CONFIGURACIÓN BASE DEL SLIDER
+-- No está asignado a ningún TextBox todavía.
+-- Cambia estos valores cuando decidas cuál usar.
+--==================================================
+
+local sliderSettings = {
+    VALOR = {
+        variable = "SliderValue",
+        min = 1,
+        max = 150,
+        default = 46,
+        step = 1
+    },
+
+    VELOCIAD = {
+        variable = "SpeedValue",
+        min = 1,
+        max = 100,
+        default = 16,
+        step = 1
+    },
+
+    FUEZA = {
+        variable = "ForceValue",
+        min = 0,
+        max = 500,
+        default = 50,
+        step = 5
+    }
+}
+
 --==================================================
 -- ICONOS DE LOS TÍTULOS GRANDES
 --==================================================
@@ -1206,21 +1239,6 @@ local function getDescriptionHeight(text)
 end
 
 --==================================================
--- CONFIGURACIÓN BASE DEL SLIDER
--- No está asignado a ningún TextBox todavía.
--- Cambia estos valores cuando decidas cuál usar.
---==================================================
-
-local sliderSettings = {
-    name = "VALOR",
-    variable = "SliderValue",
-    min = 1,
-    max = 150,
-    default = 46,
-    step = 1
-}
-
---==================================================
 -- CREAR SLIDER REUTILIZABLE (PC + MÓVIL)
 --==================================================
 
@@ -1364,6 +1382,20 @@ local function createButton(parent,text,y,callback)
 
     local multiConfig =
         multiButtons[text]
+
+    local sliderConfig = sliderSettings[text]
+
+if sliderConfig then
+    createSlider(parent, y, {
+        name = text,
+        variable = sliderConfig.variable,
+        min = sliderConfig.min,
+        max = sliderConfig.max,
+        default = sliderConfig.default,
+        step = sliderConfig.step
+    })
+    return
+    end
 
     local container =
         Instance.new("Frame",parent)
