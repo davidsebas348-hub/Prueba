@@ -1215,7 +1215,7 @@ local sliderSettings = {
     name = "VALOR",
     variable = "SliderValue",
     min = 1,
-    max = 100,
+    max = 150,
     default = 46,
     step = 1
 }
@@ -1762,6 +1762,7 @@ local menuData = {
     ["GAMEPASS"] = {
 
         "MAS ESPACIO PARA EMOTES",
+        "valor",
 
     },
 
