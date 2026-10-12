@@ -1,21 +1,213 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text155/refs/heads/main/Text155.lua"))() -- Detectar Rol (importante)
-                            
 -- ======================
--- SBS HUB COMPLETO FINAL  (M
+-- SBS HUB COMPLETO FINAL  (TSB)
 -- ======================
+
 repeat task.wait() until game:IsLoaded()
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = game:GetService("CoreGui")
 screenGui.DisplayOrder = 999999
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
+local TextService = game:GetService("TextService")
+
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
--- poner nombre de textobox que queremos que solo se ponga números
+--==================================================
+-- CONFIGURACIÓN
+--==================================================
+
+local menuNames = {
+    ["MAIN"] = "PLAYER MENU",
+    ["ESP"] = "ESP",
+    ["COMBATE"] = "AUTO M1 COMBOS",
+    ["AUTO"] = "M1",
+    ["TELEPORT"] = "ETAPA",
+    ["LABELS"] = "LABELS",
+    ["FPS"] = "FPS",
+    ["YOUTUBE"] = "YOUTUBE",
+}
+
+--==================================================
+-- ICONOS
+--==================================================
+
+-- ICONOS DEL MENÚ IZQUIERDO
+-- LEFT = izquierda
+-- RIGHT = derecha
+
+local leftMenuIcons = {
+
+    ["MAIN"] = "rbxassetid://ID_AQUI",
+    ["ESP"] = "rbxassetid://ID_AQUI",
+    ["COMBATE"] = "rbxassetid://ID_CALAVERA",
+    ["GAMEPASS"] = "rbxassetid://ID_AQUI",
+    ["AUTO"] = "rbxassetid://ID_AQUI",
+    ["TELEPORT"] = "rbxassetid://ID_AQUI",
+    ["LABELS"] = "rbxassetid://ID_AQUI",
+    ["FPS"] = "rbxassetid://ID_AQUI",
+
+}
+
+local iconPositions = {
+
+    ["MAIN"] = "RIGHT",
+    ["ESP"] = "RIGHT",
+    ["COMBATE"] = "RIGHT",
+    ["GAMEPASS"] = "RIGHT",
+    ["AUTO"] = "RIGHT",
+    ["TELEPORT"] = "RIGHT",
+    ["LABELS"] = "RIGHT",
+    ["FPS"] = "RIGHT",
+
+}
+
+--==================================================
+-- ICONOS DE LOS TÍTULOS GRANDES
+--==================================================
+
+local rightTitleIcons = {
+
+    ["PLAYER MENU"] = "rbxassetid://ID_AQUI",
+    ["ESP"] = "rbxassetid://ID_AQUI",
+    ["FIGHT SYSTEM"] = "rbxassetid://ID_CALAVERA",
+    ["M1"] = "rbxassetid://ID_AQUI",
+    ["ETAPA"] = "rbxassetid://ID_AQUI",
+    ["LABELS"] = "rbxassetid://ID_AQUI",
+    ["FPS"] = "rbxassetid://ID_AQUI",
+    ["YOUTUBE"] = "rbxassetid://ID_AQUI",
+
+}
+
+--==================================================
+-- ICONOS DE SUBTÍTULOS / SECCIONES
+--==================================================
+
+local rightSubtitleIcons = {
+
+    ["ARMA"] = "rbxassetid://ID_AQUI",
+    ["BATON"] = "rbxassetid://ID_AQUI",
+    ["JUMP PAD"] = "rbxassetid://ID_AQUI",
+    ["HITBOX"] = "rbxassetid://ID_AQUI",
+
+    ["CONFIGURAR TOOLS"] = "rbxassetid://ID_AQUI",
+    ["RECOLECCIÓN"] = "rbxassetid://ID_AQUI",
+    ["MUNDOS"] = "rbxassetid://ID_AQUI",
+    ["CLICK"] = "rbxassetid://ID_AQUI",
+    ["JUGADORES"] = "rbxassetid://ID_AQUI",
+
+    ["FLING"] = "rbxassetid://ID_AQUI",
+    ["KILL"] = "rbxassetid://ID_AQUI",
+    ["SERVER"] = "rbxassetid://ID_AQUI",
+
+    ["TOUCH"] = "rbxassetid://ID_AQUI",
+    ["ENEMIES"] = "rbxassetid://ID_AQUI",
+    ["PLAYERS"] = "rbxassetid://ID_AQUI",
+
+    ["EAT"] = "rbxassetid://ID_AQUI",
+    ["HEALTH"] = "rbxassetid://ID_AQUI",
+
+    ["DAMAGE MULTIPLIER"] = "rbxassetid://ID_AQUI",
+    ["MODIFY GUNS"] = "rbxassetid://ID_AQUI",
+    ["MESH WEAPON MODIFICATIONS"] = "rbxassetid://ID_AQUI",
+
+    ["BRING"] = "rbxassetid://ID_AQUI",
+    ["GRAB"] = "rbxassetid://ID_AQUI",
+
+    ["PERFORMANCE"] = "rbxassetid://ID_AQUI",
+
+    ["PLAYER"] = "rbxassetid://ID_AQUI",
+    ["TELEPORT"] = "rbxassetid://ID_AQUI",
+    ["GANAR"] = "rbxassetid://ID_AQUI",
+    ["MODIFICAR TOOLS"] = "rbxassetid://ID_AQUI",
+
+    ["MOVEMENT SETTINGS"] = "rbxassetid://ID_AQUI",
+    ["OP"] = "rbxassetid://ID_AQUI",
+    ["ESP VISUAL"] = "rbxassetid://ID_AQUI",
+
+}
+
+--==================================================
+-- COLOR DE LOS TÍTULOS GRANDES DERECHOS
+--==================================================
+
+local menuTitleColors = {
+
+    ["MAIN"] = Color3.fromRGB(255,255,255),
+    ["ESP"] = Color3.fromRGB(0,255,255),
+    ["COMBATE"] = Color3.fromRGB(255,0,0),
+    ["AUTO"] = Color3.fromRGB(0,255,0),
+    ["TELEPORT"] = Color3.fromRGB(0,170,255),
+    ["LABELS"] = Color3.fromRGB(255,255,0),
+    ["FPS"] = Color3.fromRGB(255,0,255),
+    ["YOUTUBE"] = Color3.fromRGB(255,0,0),
+
+}
+
+--==================================================
+-- COLOR DEL TEXTO DE LOS MENÚS IZQUIERDOS
+--==================================================
+
+local leftMenuTextColors = {
+
+    ["MAIN"] = Color3.fromRGB(255,255,0),
+    ["ESP"] = Color3.fromRGB(0,255,255),
+    ["COMBATE"] = Color3.fromRGB(255,0,0),
+    ["AUTO"] = Color3.fromRGB(0,255,0),
+    ["TELEPORT"] = Color3.fromRGB(0,170,255),
+    ["LABELS"] = Color3.fromRGB(255,255,0),
+    ["FPS"] = Color3.fromRGB(255,0,255),
+    ["GAMEPASS"] = Color3.fromRGB(255,255,0),
+    ["YOUTUBE"] = Color3.fromRGB(255,0,0),
+
+}
+
+--==================================================
+-- COLOR DEL TEXTO DE LOS BOTONES DERECHOS
+--==================================================
+
+local rightButtonTextColors = {
+
+    ["SPEED"] = Color3.fromRGB(255,255,0),
+    ["JUMPPOWER"] = Color3.fromRGB(0,255,255),
+    ["GRAVITY"] = Color3.fromRGB(255,100,100),
+    ["FLY"] = Color3.fromRGB(0,255,0),
+    ["LOCALPLAYER"] = Color3.fromRGB(255,0,255),
+
+}
+
+--==================================================
+-- DESCRIPCIONES
+--==================================================
+
+local buttonDescriptions = {
+
+    ["SPEED"] = "Cambia la velocidad del jugador.",
+    ["JUMPPOWER"] = "Cambia la fuerza con la que salta el jugador.",
+    ["GRAVITY"] = "Modifica la gravedad del jugador.",
+    ["FLY"] = "Activa el vuelo del jugador.",
+    ["FLY SPEED"] = "Cambia la velocidad de movimiento mientras estás volando.",
+    ["INVISIBLE"] = "Hace que tu personaje sea invisible para los demás jugadores.",
+    ["NOCLIP"] = "Permite atravesar paredes y otros objetos.",
+    ["LOCALPLAYER"] = "Modifica las opciones relacionadas con tu jugador.",
+    ["MAS ESPACIO PARA EMOTES"] = "Tener un total de 8 espacio.",
+    ["ESP ULTI"] = "Muestra cuanto tiene de ultime.",
+    ["ESP DEATH COUNTER"] = "Muestra quien tiene el counter de saitama mostrando una💀.",
+    ["RESET STATS"] = "Restablece las estadísticas modificadas del jugador.",
+    ["QUITAR LOS EFECTOS"] = "Puede causar bugs en el juego.",
+    ["BAJAR LOS GRÁFICOS"] = "Baja demasiado los gráficos pada tener un buen rendimiento.",
+    ["RESET TATS"] = ".",
+}
+
+--==================================================
+-- CONFIGURACIÓN NUMÉRICA
+--==================================================
+
 local numericBoxes = {
+
     ["SPEED"] = true,
     ["JUMPPOWER"] = true,
     ["GRAVITY"] = true,
@@ -25,176 +217,200 @@ local numericBoxes = {
     ["TRASPARENCY 0-1"] = true,
     ["FOV SIZE"] = true,
     ["BULLET SIZE"] = true,
-}
--- tener 2 botones en una ocupando espacio de 1 botón 
- local quadButtons = {
-    {
-        "BTN1",
-        "BTN2",
-        "BTN3",
-        "BTN4"
-    },
+    ["1 = 20"] = true,
+    ["CAMBIAR FPS"] = true,
+    ["DAÑO DE EL DISPARO"] = true,
+    ["ESCRIBE EL VALOR QUE QUIERES TENER"] = true,
+    ["DAÑO"] = true,
+    ["DAÑO EN BLOQUEO"] = true,
+    ["FUERZA"] = true,
+    ["GANANCIA PARA LA ESPECIAL"] = true,
+    ["COOLDOWN DE LA ESPECIAL"] = true,
+    ["CHANCE DE LA PASIVA"] = true,
 
-    {
-        "MAP",
-        "LOBBY",
-        "PLAYER NAM",
-        "TP TO PLAYER"
-    }
 }
--- poner título arriba de tal botón 
+
+--==================================================
+-- BOTONES DOBLES
+--==================================================
+
+local doubleButtons = {
+    ["AUTO ACAR VOLANDO"] = "NOMBRE DE EL JUGADO",
+    ["PLAYER NAME"] = "TP TO PLAYER",
+}
+
+--==================================================
+-- TÍTULOS
+--==================================================
+
 local topTitles = {
-    ["SPEED"] = "MOVEMENT SETTINGS",
-    ["TRASPARENCY 0-"] = "OP",
+
+    ["ACTIVAR MODFICACIÓN"] = "MODIFICAR TOOLS",
+    ["TP T"] = "TELEPORT",
+    ["AUTO GANAR EN LA HABILIDAD Juicio Final"] = "GANAR",
+    ["SPEED"] = "PLAYER",
+
 }
 
--- poner títulos abajo de tal botón
 local customTitles = {
+
     ["SPED"] = "MOVEMENT SETTINGS",
     ["TRSPARENCY 0-1"] = "OP",
     ["ESP NAE"] = "ESP VISUAL",
+
 }
 
--- cambiar el nombre de los Titulos de las secciones 
-local menuNames = {
-    ["MAI"] = "PLAYER MENU",
-    ["COMBAT"] = "FIGHT SYSTEM",
-    ["ESP"] = "VISUALS",
-    ["TELEPORT"] = "TELEPORTS",
-}
-
--- ======================
--- 🔥 MULTI BUTTON CONFIG
--- ======================
+--==================================================
+-- MULTI BUTTONS
+--==================================================
 
 local multiButtons = {
-    ["MODE: NORMAL"] = {
+
+    [""] = {
         options = {
+
             {
                 name = "MODE: BLE",
                 variable = "OnlyVisie",
-                color = Color3.fromRGB(0, 255, 0)
+                color = Color3.fromRGB(0,255,0)
             },
+
             {
                 name = "MODE: NO VISIBLE",
                 variable = "aim_torso",
-                color = Color3.fromRGB(255, 0, 0)
-            }
+                color = Color3.fromRGB(255,0,0)
+            },
+
         }
     },
 
     ["MODE: NO EQUIPPED KNIFE"] = {
         options = {
+
             {
                 name = "MODE: ONLY EQUIPPED KNIFE",
                 variable = "ONLY_EQUIPPED_KNIFE",
-                color = Color3.fromRGB(0, 255, 0)
+                color = Color3.fromRGB(0,255,0)
             },
+
             {
                 name = "MODE: NO EQUIPPED KNIFE",
                 variable = "NOU",
-                color = Color3.fromRGB(255, 0, 0)
-            }
+                color = Color3.fromRGB(255,0,0)
+            },
+
         }
     },
 
     ["ESP COLOR"] = {
         options = {
+
             {
                 name = "BLACK",
                 variable = "esp_black",
-                color = Color3.fromRGB(0, 0, 0)
+                color = Color3.fromRGB(0,0,0)
             },
+
             {
                 name = "RED",
                 variable = "esp_red",
-                color = Color3.fromRGB(255, 0, 0)
+                color = Color3.fromRGB(255,0,0)
             },
+
             {
                 name = "BLUE",
                 variable = "esp_blue",
-                color = Color3.fromRGB(0, 100, 255)
-            }
-        }
-    }
-}
--- ======================
--- CONFIG GLOBAL BOTONES (FALTABA ESTO)
--- ======================
+                color = Color3.fromRGB(0,100,255)
+            },
 
-local BUTTON_SIZE = UDim2.new(1, -20, 0, 30)
+        }
+    },
+}
+
+--==================================================
+-- TAMAÑO GLOBAL
+--==================================================
+
+local BUTTON_SIZE = UDim2.new(1,-20,0,30)
 
 local BUTTON_OFFSET_X = 10
 local BUTTON_GLOBAL_X = 0
 local BUTTON_GLOBAL_Y = 0
 
--- ======================
--- CONFIG PERSONAL POR BOTÓN (MODIFICAR TAMAÑO DE CADA BOTON SOLO PONER EL NOMBRE Y YA)
--- ======================
+--==================================================
+-- TAMAÑOS PERSONALIZADOS
+--==================================================
 
 local BUTTON_CUSTOM = {
-    ["MODE: NO EQUIPPED KNIFE"] = {
-        size = UDim2.new(1, -50, 0, 27),
+
+    ["DELAY"] = {
+        size = UDim2.new(1,-50,0,27),
         x = 20,
         y = -6
     },
 
-    ["SIZ"] = {
-        size = UDim2.new(1, -50, 0, 27),
+    ["NOMBRE DE EL JUGAD"] = {
+        size = UDim2.new(1,-50,0,27),
         x = 20,
         y = -6
     },
 
-    ["BULLET TRACERS"] = {
-        size = UDim2.new(1, -50, 0, 27),
+    ["POWER"] = {
+        size = UDim2.new(1,-50,0,27),
         x = 20,
         y = -6
     },
 
     ["COLOR OF THE ESP"] = {
-        size = UDim2.new(1, -50, 0, 27),
+        size = UDim2.new(1,-50,0,27),
         x = 20,
         y = -6
     },
-    
+
     ["BULLET SIZE."] = {
-        size = UDim2.new(1, -50, 0, 27),
+        size = UDim2.new(1,-50,0,27),
         x = 20,
         y = -6
     },
 
     ["TRASPARENCY 0-"] = {
-        size = UDim2.new(1, -50, 0, 27),
+        size = UDim2.new(1,-50,0,27),
         x = 20,
-        y = -9 
-    }
+        y = -9
+    },
+
 }
 
--- TITULOS ARRIBA DE BOTONES (titulos simples)
+--==================================================
+-- TÍTULOS DE BOTONES
+--==================================================
+
 local buttonTitles = {
-    ["SPED"] = "PLAYER",
-    ["AUTO DESTROY TO ALL OBJECTS"] = "TROLL",
+
+    ["AUTO DISPARAR (EQUIPAR MINIGUN"] = "ARMA",
+    ["KILL AURA (EQUIPAR BATON)"] = "BATON",
     ["JUMP(BUTTON)"] = "JUMP PAD",
+    ["EXPANDIR HITBOX"] = "HITBOX",
 
-    ["TP TOOL"] = "CLICK TP",
-    ["MAP"] = "GAME",
-    ["PLAYER NAME"] = "PLAYERS",
-    
+    ["ACTIVAR CONFIGURACIÓN"] = "CONFIGURAR TOOLS",
+    ["AUTO RECOLECTAR DINERO (RAPIDO)"] = "RECOLECCIÓN",
 
-    ["AUTO DOBLE JUMP"] = "BUTTONS",
-    [""] = "TROLL", 
-    
-    ["ESP TO ALL ALARMS"] = "END",
-    ["ESP TO ALL THE TOKEN"] = "ITEMS",
+    ["TP A MUNDO 2"] = "MUNDOS",
+    ["TP TOOL"] = "CLICK",
+    ["NOMBRE DE EL JUGADOR"] = "JUGADORES",
+
+    ["AUTO SACAR VOLANDO A TODOS"] = "FLING",
+    ["AUTO MATAR A TODOS"] = "KILL",
+    ["LAG SERVER (EQUIPAR BOMBA)"] = "SERVER",
+
+    ["PLAYER NA"] = "FLING",
+    ["TOUCH FLING"] = "TOUCH",
     ["ESP ENEMIES"] = "ENEMIES",
     ["ESP PLAYERS + NAME + DISTANCE"] = "PLAYERS",
 
     ["AUTO EAT"] = "EAT",
     ["SELF-HEALING"] = "HEALTH",
-    [""] = "ENEMIES",
-    [""] = "PLAYERS",
 
-    ["HITBOX EXTENDER"] = "HITBOX",
     ["AUTO KILL ENEMIES"] = "KILL",
     ["MULTIPLY DAMAGE"] = "DAMAGE MULTIPLIER",
     ["INFINITY AMMO"] = "MODIFY GUNS",
@@ -202,47 +418,72 @@ local buttonTitles = {
 
     ["NAME OF THE ITEM"] = "BRING",
     ["NAME OF THE ITEM."] = "GRAB",
-    
-    ["Fps Boost"] = "PERFORMANCE"
+
+    ["Fps Boost"] = "PERFORMANCE",
+
 }
--- togle v2
+
+--==================================================
+-- TOGGLES ROJOS
+--==================================================
+
 local redToggleButtons = {
     ["X-RAY"] = true,
     ["BULLET TRACERS"] = true,
 }
 
-getgenv().SBS_BUTTON_STATES = getgenv().SBS_BUTTON_STATES or {}
-local buttonStates = getgenv().SBS_BUTTON_STATES
--- BOTONES QUE NO SERAN TOGLE
+getgenv().SBS_BUTTON_STATES =
+    getgenv().SBS_BUTTON_STATES or {}
+
+local buttonStates =
+    getgenv().SBS_BUTTON_STATES
+
+--==================================================
+-- BOTONES SIN TOGGLE
+--==================================================
+
 local noToggleButtons = {
+
     ["YOUTUBE:SBS HUB"] = true,
     ["SUSCRIBETE:)"] = true,
-    ["SILENT AIM"] = true,
+    ["OBTENER TODAS LAS TOOLS"] = true,
     ["LOCALPLAYER"] = true,
     ["RESET STATS"] = true,
     ["DESNC"] = true,
     ["Fps Boost"] = true,
-    ["LOBBY"] = true,
-    ["MAP"] = true,
+    ["REVIVIR"] = true,
+    ["AUTO FARMEAR DINERO"] = true,
+    ["ESTAR EN LA ETAPA 99.900M"] = true,
+    ["COMPLETAR OBBY"] = true,
+    ["SER GUARDIA"] = true,
+    ["SER PRISIONERO"] = true,
+    ["PARAR EL TIEMPO"] = true,
+    ["TP A MUNDO 2"] = true,
+    ["OBTENER SHIFTLOCK"] = true,
+    ["TP A JUGADOR"] = true,
+    ["MULTI SALTOS INFINITOS"] = true,
+    ["MAS ESPACIO PARA EMOTES"] = true,
+    ["AUTO COMPLETAR"] = true,
+    ["TP TO PLAYER"] = true,
     ["FLING PLAYER"] = true,
-    ["GRAB GUN"] = true,
-    ["SHOOT THE MURDERER"] = true,
-    [""] = true,
-    [""] = true,  
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    ["BULLET TRACERS"] = true,
-    ["TP TO PLAYER"] = true,  
+    ["OBTENER 999 DE SALTOS"] = true,
+    ["SALTAR TODO"] = true,
+    ["OBTENER SKIPS (Saltos)"] = true,
+    ["BAJAR LOS GRÁFICOS"] = true,
+    ["QUITAR LOS EFECTOS"] = true,
+
 }
 
--- BOTONES SIN EFECTO VERDE
 local noGreenFlash = {
     ["SUSCRIBETE:)"] = true
 }
 
+--==================================================
+-- TEXTBOX
+--==================================================
+
 local textboxButtons = {
+
     ["SPEED"] = {
         variable = "SPEED",
         url = "https://raw.githubusercontent.com/davidsebas348-hub/Speed/refs/heads/main/Speed.lua"
@@ -268,890 +509,2210 @@ local textboxButtons = {
         url = "https://raw.githubusercontent.com/davidsebas348-hub/Gravity/refs/heads/main/Gravity.lua"
     },
 
+    ["ESCRIBE LA ETAPA QUE QUIERAS IR"] = {
+        variable = "StageNumber",
+        url = "https://raw.githubusercontent.com/davidsebas348-hub/Text66/refs/heads/main/Text66.lua"
+    },
+
     ["FLY SPEED"] = {
-    variable = "FLY_SPEED",
-    url = nil
+        variable = "FLY_SPEED",
+        url = nil
     },
-    ["SIZE"] = {
-    variable = "HITBOX_SIZE",
-    url = nil
+
+    ["TAMAÑO"] = {
+        variable = "HITBOX_SIZE",
+        url = nil
     },
-    ["PLAYER NAME"] = {
-    variable = "PLAYER",
-    url = nil
+
+    ["TRANSPARENCIA 0-1"] = {
+        variable = "HITBOX_TRANSPARENCY",
+        url = nil
     },
-    ["TRASPARENCY 0-1"] = {
-    variable = "HITBOX_TRANSPARENCY",
-    url = nil
+
+    ["NOMBRE DE EL JUGADOR"] = {
+        variable = "PLAYER",
+        url = nil
     },
+
+    ["ESCRIBE EL VALOR QUE QUIERES TENER"] = {
+        variable = "Veces",
+        url = nil
+    },
+
+    ["TIEMPO DE RECARGA"] = {
+        variable = "FoodZookaSettings.ReloadTime",
+        url = nil
+    },
+
+    ["FUERZA DE EL DISPARO"] = {
+        variable = "FoodZookaSettings.Force",
+        url = nil
+    },
+
+    ["VELOCIDAD DE EL DISPARO"] = {
+        variable = "FoodZookaSettings.BulletSpeed",
+        url = nil
+    },
+
+    ["NOMBRE DE EL JUGADOR_"] = {
+        variable = "TargetPlayer2",
+        url = nil
+    },
+
+    ["DAÑO DE EL DISPARO"] = {
+        variable = "FoodZookaSettings.Damage",
+        url = nil
+    },
+
+    ["DAÑO"] = {
+        variable = "Damage",
+        url = nil
+    },
+
+    ["DAÑO POR DEFECTO"] = {
+        variable = "DefaultDamage",
+        url = nil
+    },
+
+    ["DAÑO EN BLOQUEO"] = {
+        variable = "BlockDamage",
+        url = nil
+    },
+
+    ["FUERZA"] = {
+        variable = "Force",
+        url = nil
+    },
+
+    ["CHANCE DE LA PASIVA"] = {
+        variable = "PassivaChance",
+        url = nil
+    },
+
+    ["DISTANCIA DE LA DETECCIÓN DE M1"] = {
+        variable = "Distance",
+        url = nil
+    },
+
+    ["DISTANCIA DE LA DETECCIÓN DEL M1"] = {
+        variable = "AUTO_F_DISTANCE",
+        url = nil
+    },
+
+    ["GANANCIA PARA LA ESPECIAL"] = {
+        variable = "SpecialBuildup",
+        url = nil
+    },
+
+    ["COOLDOWN DE LA ESPECIAL"] = {
+        variable = "SpecialCooldown",
+        url = nil
+    },
+
     ["PLAYER NAME."] = {
-    variable = "TargetPlayerName",
-    url = nil
+        variable = "TargetPlayerName",
+        url = nil
     },
+
     ["FOV SIZE"] = {
-    variable = "AIMBOT_FOV",
-    url = nil
+        variable = "AIMBOT_FOV",
+        url = nil
     },
-    ["BULLET SIZE"] = {
-    variable = "BULLET_SIZE",
-    url = "https://raw.githubusercontent.com/davidsebas348-hub/Text433/refs/heads/main/Text433.lua"
+
+    ["RANGO"] = {
+        variable = "HitRadius",
+        url = nil
     },
+
     ["XRAY-TRANSPARENCY"] = {
-    variable = "XRAY_TRANSPARENCY",
-    url = "https://raw.githubusercontent.com/davidsebas348-hub/Text433/refs/heads/main/Text433.lua"
+        variable = "XRAY_TRANSPARENCY",
+        url = "https://raw.githubusercontent.com/davidsebas348-hub/Text433/refs/heads/main/Text433.lua"
     },
-    ["JUMP POWER OF THE DOUBLE JUMP"] = {
-    variable = "FAKE_JUMP_POWER",
-    url = nil
+
+    ["CAMBIAR FPS"] = {
+        variable = "FPS",
+        url = "https://raw.githubusercontent.com/davidsebas348-hub/Cambiar_FPS/refs/heads/main/.lua"
+    },
+
+    ["POWER"] = {
+        variable = "TouchFlingForce",
+        url = nil
+    },
+
 }
-}
-local old = PlayerGui:FindFirstChild("SBS_HUB")
+
+--==================================================
+-- BORRAR GUI ANTERIOR
+--==================================================
+
+local old =
+    PlayerGui:FindFirstChild("SBS_HUB")
+
 if old then
     old:Destroy()
 end
+
 screenGui.Name = "SBS_HUB"
 screenGui.ResetOnSpawn = false
-local mainFrame = Instance.new("Frame", screenGui)
-mainFrame.Size = UDim2.new(0,500,0,350)
-mainFrame.Position = UDim2.new(0.5,-250,0.5,-175)
-mainFrame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+
+--==================================================
+-- MAIN FRAME
+--==================================================
+
+local mainFrame =
+    Instance.new("Frame",screenGui)
+
+mainFrame.Size =
+    UDim2.new(0,500,0,350)
+
+mainFrame.Position =
+    UDim2.new(0.5,-250,0.5,-175)
+
+mainFrame.BackgroundColor3 =
+    Color3.fromRGB(0,0,0)
+
 mainFrame.BorderSizePixel = 0
 mainFrame.ClipsDescendants = false
 
--- ======================
--- RESIZE CORNER
--- ======================
-local resizeCorner = Instance.new("Frame", mainFrame)
-resizeCorner.Size = UDim2.new(0,20,0,20)
-resizeCorner.Position = UDim2.new(1,-20,1,-20)
+--==================================================
+-- BORDE
+--==================================================
+
+local stroke =
+    Instance.new("UIStroke",mainFrame)
+
+stroke.Color =
+    Color3.fromRGB(255,255,255)
+
+stroke.Thickness = 2
+
+--==================================================
+-- RESIZE
+--==================================================
+
+local resizeCorner =
+    Instance.new("Frame",mainFrame)
+
+resizeCorner.Size =
+    UDim2.new(0,20,0,20)
+
+resizeCorner.Position =
+    UDim2.new(1,-20,1,-20)
+
+resizeCorner.BackgroundColor3 =
+    Color3.fromRGB(255,255,255)
+
 resizeCorner.BackgroundTransparency = 0.5
-resizeCorner.BackgroundColor3 = Color3.fromRGB(255,255,255)
 resizeCorner.BorderSizePixel = 0
 resizeCorner.ZIndex = 10
 
--- ======================
--- RESIZE LOGIC
--- ======================
 do
-    local dragging, dragStart, startSize
-    local function updateSize(input)
-        local delta = input.Position - dragStart
-        local newWidth = math.max(100, startSize.X + delta.X) -- mínimo ancho 100
-        local newHeight = math.max(100, startSize.Y + delta.Y) -- mínimo alto 100
-        mainFrame.Size = UDim2.new(0, newWidth, 0, newHeight)
-    end
+
+    local dragging = false
+    local dragStart
+    local startSize
+
     resizeCorner.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+
+        if input.UserInputType ==
+            Enum.UserInputType.MouseButton1
+        or input.UserInputType ==
+            Enum.UserInputType.Touch then
+
             dragging = true
             dragStart = input.Position
-            startSize = Vector2.new(mainFrame.AbsoluteSize.X, mainFrame.AbsoluteSize.Y)
+
+            startSize =
+                Vector2.new(
+                    mainFrame.AbsoluteSize.X,
+                    mainFrame.AbsoluteSize.Y
+                )
+
             input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then
+
+                if input.UserInputState ==
+                    Enum.UserInputState.End then
+
                     dragging = false
+
                 end
+
             end)
+
         end
+
     end)
+
     UserInputService.InputChanged:Connect(function(input)
-        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-            updateSize(input)
+
+        if dragging
+        and (
+            input.UserInputType ==
+                Enum.UserInputType.MouseMovement
+            or input.UserInputType ==
+                Enum.UserInputType.Touch
+        ) then
+
+            local delta =
+                input.Position - dragStart
+
+            local newWidth =
+                math.max(
+                    300,
+                    startSize.X + delta.X
+                )
+
+            local newHeight =
+                math.max(
+                    200,
+                    startSize.Y + delta.Y
+                )
+
+            mainFrame.Size =
+                UDim2.new(
+                    0,newWidth,
+                    0,newHeight
+                )
+
         end
+
     end)
+
 end
 
-
-local stroke = Instance.new("UIStroke", mainFrame)
-stroke.Color = Color3.fromRGB(255,255,255)
-stroke.Thickness = 2
-
+--==================================================
+-- DRAG MAIN
+--==================================================
 
 do
-    local dragging, dragStart, startPos, dragInput
+
+    local dragging = false
+    local dragStart
+    local startPos
+    local dragInput
+
     local function update(input)
-        local delta = input.Position - dragStart
-        mainFrame.Position = UDim2.new(
-            startPos.X.Scale, startPos.X.Offset + delta.X,
-            startPos.Y.Scale, startPos.Y.Offset + delta.Y
-        )
+
+        local delta =
+            input.Position - dragStart
+
+        mainFrame.Position =
+            UDim2.new(
+                startPos.X.Scale,
+                startPos.X.Offset + delta.X,
+                startPos.Y.Scale,
+                startPos.Y.Offset + delta.Y
+            )
+
     end
+
     mainFrame.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+
+        if input.UserInputType ==
+            Enum.UserInputType.MouseButton1
+        or input.UserInputType ==
+            Enum.UserInputType.Touch then
+
             dragging = true
             dragStart = input.Position
             startPos = mainFrame.Position
+
             input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then dragging = false end
+
+                if input.UserInputState ==
+                    Enum.UserInputState.End then
+
+                    dragging = false
+
+                end
+
             end)
+
         end
+
     end)
+
     mainFrame.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+
+        if input.UserInputType ==
+            Enum.UserInputType.MouseMovement
+        or input.UserInputType ==
+            Enum.UserInputType.Touch then
+
             dragInput = input
+
         end
+
     end)
+
     UserInputService.InputChanged:Connect(function(input)
-        if input == dragInput and dragging then update(input) end
+
+        if input == dragInput
+        and dragging then
+
+            update(input)
+
+        end
+
     end)
+
 end
 
-local title = Instance.new("TextLabel", mainFrame)
-title.Size = UDim2.new(1,0,0,50)
-title.BackgroundColor3 = Color3.fromRGB(0,0,0)
-title.Text = "SBS HUB | Pistol Arena"
-title.TextColor3 = Color3.fromRGB(255,255,255)
-title.Font = Enum.Font.GothamBold
-title.TextScaled = true
-local line = Instance.new("Frame", mainFrame)
-line.Size = UDim2.new(1,0,0,2)
-line.Position = UDim2.new(0,0,0,50)
-line.BackgroundColor3 = Color3.new(1,1,1)
-line.BackgroundTransparency = 0
+--==================================================
+-- TITULO
+--==================================================
 
-local rightFrame = Instance.new("ScrollingFrame", mainFrame)
-rightFrame.Size = UDim2.new(1,-150,1,-52)
-rightFrame.Position = UDim2.new(0,150,0,52)
-rightFrame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+local title =
+    Instance.new("TextLabel",mainFrame)
+
+title.Size =
+    UDim2.new(1,0,0,50)
+
+title.BackgroundColor3 =
+    Color3.fromRGB(0,0,0)
+
+title.Text =
+    "SBS HUB | HYPER SPEED RUNNER"
+
+title.TextColor3 =
+    Color3.fromRGB(255,255,255)
+
+title.Font =
+    Enum.Font.GothamBold
+
+title.TextScaled = true
+
+--==================================================
+-- LINEA
+--==================================================
+
+local line =
+    Instance.new("Frame",mainFrame)
+
+line.Size =
+    UDim2.new(1,0,0,2)
+
+line.Position =
+    UDim2.new(0,0,0,50)
+
+line.BackgroundColor3 =
+    Color3.fromRGB(255,255,255)
+
+line.BorderSizePixel = 0
+
+--==================================================
+-- LEFT
+--==================================================
+
+local leftFrame =
+    Instance.new("ScrollingFrame",mainFrame)
+
+leftFrame.Size =
+    UDim2.new(0,150,1,-52)
+
+leftFrame.Position =
+    UDim2.new(0,0,0,52)
+
+leftFrame.BackgroundColor3 =
+    Color3.fromRGB(0,0,0)
+
+leftFrame.BorderSizePixel = 0
+
+leftFrame.ScrollBarThickness = 5
+
+leftFrame.AutomaticCanvasSize =
+    Enum.AutomaticSize.Y
+
+--==================================================
+-- RIGHT
+--==================================================
+
+local rightFrame =
+    Instance.new("ScrollingFrame",mainFrame)
+
+rightFrame.Size =
+    UDim2.new(1,-150,1,-52)
+
+rightFrame.Position =
+    UDim2.new(0,150,0,52)
+
+rightFrame.BackgroundColor3 =
+    Color3.fromRGB(0,0,0)
+
 rightFrame.BorderSizePixel = 0
 
-local leftFrame = Instance.new("ScrollingFrame", mainFrame)
-leftFrame.Size = UDim2.new(0,150,1,-52)
-leftFrame.Position = UDim2.new(0,0,0,52)
-leftFrame.BackgroundColor3 = Color3.fromRGB(0,0,0)
-leftFrame.BorderSizePixel = 0
-leftFrame.ScrollBarThickness = 6
-leftFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+rightFrame.ScrollBarThickness = 5
 
--- ✅ AHORA SÍ (AQUÍ)
-local padding = Instance.new("UIPadding", rightFrame)
-padding.PaddingBottom = UDim.new(0,50)
+rightFrame.AutomaticCanvasSize =
+    Enum.AutomaticSize.Y
 
+--==================================================
+-- LINEA CENTRAL
+--==================================================
 
+local midLine =
+    Instance.new("Frame",mainFrame)
 
-local midLine = Instance.new("Frame", mainFrame)
-midLine.Size = UDim2.new(0,2,1,-52)
-midLine.Position = UDim2.new(0,150,0,52)
-midLine.BackgroundColor3 = Color3.fromRGB(255,255,255)
+midLine.Size =
+    UDim2.new(0,2,1,-52)
 
+midLine.Position =
+    UDim2.new(0,150,0,52)
 
--- ======================
--- 🔥 EMERGENCY DRAG LINE
--- ======================
+midLine.BackgroundColor3 =
+    Color3.fromRGB(255,255,255)
 
-local dragLine = Instance.new("Frame", mainFrame)
-dragLine.Size = UDim2.new(1, -60, 0, 8) -- ancho completo, altura pequeña
-dragLine.Position = UDim2.new(0, 30, 1, 10) -- el último número es para subir y bajar - es subir y sin - es bajar 
-dragLine.BackgroundColor3 = Color3.fromRGB(255,255,255)
-dragLine.BackgroundTransparency = 0.7 -- invisible
-dragLine.BorderSizePixel = 0
-dragLine.ZIndex = 20 -- encima de todo
-local corner = Instance.new("UICorner", dragLine)
-corner.CornerRadius = UDim.new(0, 6) -- puedes cambiar el 6
+midLine.BorderSizePixel = 0
 
--- DRAG LOGIC
-do
-    local dragging, dragStart, startPos
+--==================================================
+-- PADDING
+--==================================================
 
-    local function update(input)
-        local delta = input.Position - dragStart
-        mainFrame.Position = UDim2.new(
-            startPos.X.Scale, startPos.X.Offset + delta.X,
-            startPos.Y.Scale, startPos.Y.Offset + delta.Y
-        )
-    end
+local padding =
+    Instance.new("UIPadding",rightFrame)
 
-    dragLine.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            dragging = true
-            dragStart = input.Position
-            startPos = mainFrame.Position
+padding.PaddingBottom =
+    UDim.new(0,50)
 
-            input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then
-                    dragging = false
-                end
-            end)
-        end
-    end)
-
-    game:GetService("UserInputService").InputChanged:Connect(function(input)
-        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-            update(input)
-        end
-    end)
-end -- aca termina eso 🖕🖕🖕
+--==================================================
+-- BOTÓN IZQUIERDO
+--==================================================
 
 local currentMenuButton = nil
 
 local function createMenuButton(parent,text,y,callback)
-    local b = Instance.new("TextButton", parent)
-    b.Size = UDim2.new(1,-20,0,30)
-    b.Position = UDim2.new(0,10,0,y)
-    b.Text = text
-    b.BackgroundColor3 = Color3.fromRGB(15,15,15)
-    b.TextColor3 = Color3.fromRGB(255,255,255)
-    b.Font = Enum.Font.GothamBold
-    b.TextSize = 14
+
+    local b =
+        Instance.new("TextButton",parent)
+
+    b.Size =
+        UDim2.new(1,-20,0,30)
+
+    b.Position =
+        UDim2.new(0,10,0,y)
+
+    b.Text =
+        text
+
+    b.BackgroundColor3 =
+        Color3.fromRGB(15,15,15)
+
     b.BorderSizePixel = 0
 
-    b.MouseButton1Click:Connect(function()
-        -- restaurar el anterior
-        if currentMenuButton and currentMenuButton ~= b then
-            currentMenuButton.BackgroundColor3 = Color3.fromRGB(15,15,15)
-            currentMenuButton.TextColor3 = Color3.fromRGB(255,255,255)
+    --==================================================
+    -- BORDE NEGRO
+    --==================================================
+
+    local border =
+        Instance.new("UIStroke")
+
+    border.Name =
+        "ButtonBorder"
+
+    border.ApplyStrokeMode =
+        Enum.ApplyStrokeMode.Border
+
+    border.Color =
+        Color3.fromRGB(0,0,0)
+
+    border.Thickness = 1
+
+    border.Parent = b
+
+    --==================================================
+    -- COLOR DEL TEXTO
+    --==================================================
+
+    local configuredColor =
+        leftMenuTextColors[text]
+
+    b.TextColor3 =
+        configuredColor
+        or Color3.fromRGB(255,255,255)
+
+    b.Font =
+        Enum.Font.GothamBold
+
+    b.TextSize = 14
+
+    --==================================================
+    -- BRILLO DEL TEXTO
+    --==================================================
+
+    local textGlow =
+        Instance.new("UIStroke")
+
+    textGlow.Name =
+        "TextGlow"
+
+    textGlow.ApplyStrokeMode =
+        Enum.ApplyStrokeMode.Contextual
+
+    textGlow.Thickness = 1.5
+
+    textGlow.Transparency = 0.2
+
+    textGlow.Color = Color3.fromRGB(0,0,0)
+    -- PONER ESTO SI QUIERES QUE LOS BORDES SEAN DEL COLOR DEO TEXTO
+    -- configuredColor
+    --   or Color3.fromRGB(255,255,255)
+
+    textGlow.Parent = b
+
+    --==================================================
+    -- ICONO DEL MENÚ
+    --==================================================
+
+    local iconId =
+        leftMenuIcons[text]
+
+    if iconId then
+
+        local icon =
+            Instance.new("ImageLabel")
+
+        icon.Name =
+            "MenuIcon"
+
+        icon.Parent = b
+
+        icon.Size =
+            UDim2.new(0,22,0,22)
+
+        local position =
+            iconPositions[text]
+            or "RIGHT"
+
+        if position == "LEFT" then
+
+            icon.Position =
+                UDim2.new(
+                    0,5,
+                    0.5,-11
+                )
+
+        else
+
+            icon.Position =
+                UDim2.new(
+                    1,-27,
+                    0.5,-11
+                )
+
         end
 
-        -- marcar el actual
-        b.BackgroundColor3 = Color3.fromRGB(255,255,255)
-        b.TextColor3 = Color3.fromRGB(0,0,0)
+        icon.BackgroundTransparency = 1
+
+        icon.Image =
+            iconId
+
+        icon.ScaleType =
+            Enum.ScaleType.Fit
+
+        icon.ZIndex =
+            b.ZIndex + 1
+
+    end
+
+    --==================================================
+    -- CLICK
+    --==================================================
+
+    b.MouseButton1Click:Connect(function()
+
+        -- RESTAURAR ANTERIOR
+
+        if currentMenuButton
+        and currentMenuButton ~= b then
+
+            currentMenuButton.BackgroundColor3 =
+                Color3.fromRGB(15,15,15)
+
+            local oldColor =
+                leftMenuTextColors[
+                    currentMenuButton.Text
+                ]
+
+            currentMenuButton.TextColor3 =
+                oldColor
+                or Color3.fromRGB(255,255,255)
+
+            local oldGlow =
+                currentMenuButton:FindFirstChild(
+                    "TextGlow"
+                )
+
+        end
+
+        --==================================================
+        -- SELECCIONADO
+        --==================================================
+
+        if configuredColor then
+
+            b.BackgroundColor3 =
+                Color3.fromRGB(255,255,255)
+
+            b.TextColor3 =
+                configuredColor
+
+        else
+
+            b.BackgroundColor3 =
+                Color3.fromRGB(0,0,0)
+
+            b.TextColor3 =
+                Color3.fromRGB(255,255,255)
+
+        end
 
         currentMenuButton = b
 
         callback()
+
     end)
+
 end
+
+--==================================================
+-- ALTURA DE DESCRIPCIÓN
+--==================================================
+
+local function getDescriptionHeight(text)
+
+    if not text or text == "" then
+        return 0
+    end
+
+    local width =
+        math.max(
+            100,
+            rightFrame.AbsoluteSize.X - 30
+        )
+
+    local result =
+        TextService:GetTextSize(
+            text,
+            10,
+            Enum.Font.Gotham,
+            Vector2.new(width,1000)
+        )
+
+    return math.max(
+        15,
+        result.Y
+    )
+
+end
+
+--==================================================
+-- CONFIGURACIÓN BASE DEL SLIDER
+-- No está asignado a ningún TextBox todavía.
+-- Cambia estos valores cuando decidas cuál usar.
+--==================================================
+
+local sliderSettings = {
+    name = "VALOR",
+    variable = "SliderValue",
+    min = 1,
+    max = 100,
+    default = 46,
+    step = 1
+}
+
+--==================================================
+-- CREAR SLIDER REUTILIZABLE (PC + MÓVIL)
+--==================================================
+
+local function createSlider(parent, y, settings)
+
+    settings = settings or sliderSettings
+
+    local minimum = tonumber(settings.min) or 0
+    local maximum = tonumber(settings.max) or 100
+    local step = math.max(tonumber(settings.step) or 1, 0.000001)
+    if maximum < minimum then
+        minimum, maximum = maximum, minimum
+    end
+
+    local value = tonumber(getgenv()[settings.variable])
+        or tonumber(settings.default)
+        or minimum
+    value = math.clamp(value, minimum, maximum)
+
+    local container = Instance.new("Frame")
+    container.Name = "SliderContainer"
+    container.Parent = parent
+    container.Position = UDim2.new(0, 10, 0, y)
+    container.Size = UDim2.new(1, -20, 0, 46)
+    container.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    container.BorderSizePixel = 0
+
+    local label = Instance.new("TextLabel")
+    label.Name = "SliderLabel"
+    label.Parent = container
+    label.Position = UDim2.new(0, 8, 0, 2)
+    label.Size = UDim2.new(1, -16, 0, 18)
+    label.BackgroundTransparency = 1
+    label.Font = Enum.Font.GothamBold
+    label.TextSize = 13
+    label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    label.TextXAlignment = Enum.TextXAlignment.Left
+
+    local track = Instance.new("TextButton")
+    track.Name = "SliderTrack"
+    track.Parent = container
+    track.Position = UDim2.new(0, 8, 0, 27)
+    track.Size = UDim2.new(1, -16, 0, 8)
+    track.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    track.BorderSizePixel = 0
+    track.Text = ""
+    track.AutoButtonColor = false
+    track.Active = true
+
+    local fill = Instance.new("Frame")
+    fill.Name = "SliderFill"
+    fill.Parent = track
+    fill.Size = UDim2.new(0, 0, 1, 0)
+    fill.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    fill.BorderSizePixel = 0
+
+    local knob = Instance.new("Frame")
+    knob.Name = "SliderKnob"
+    knob.Parent = track
+    knob.AnchorPoint = Vector2.new(0.5, 0.5)
+    knob.Position = UDim2.new(0, 0, 0.5, 0)
+    knob.Size = UDim2.new(0, 14, 0, 14)
+    knob.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    knob.BorderSizePixel = 0
+
+    local dragging = false
+    local activeInput = nil
+
+    local function updateLabelAndPosition(newValue)
+        newValue = math.clamp(newValue, minimum, maximum)
+        newValue = minimum + math.floor(((newValue - minimum) / step) + 0.5) * step
+        newValue = math.clamp(newValue, minimum, maximum)
+        value = newValue
+
+        local range = maximum - minimum
+        local alpha = range > 0 and ((value - minimum) / range) or 0
+        label.Text = tostring(settings.name or "VALOR") .. " " .. tostring(value)
+        fill.Size = UDim2.new(alpha, 0, 1, 0)
+        knob.Position = UDim2.new(alpha, 0, 0.5, 0)
+
+        if settings.variable then
+            getgenv()[settings.variable] = value
+        end
+    end
+
+    local function updateFromInput(input)
+        local width = track.AbsoluteSize.X
+        if width <= 0 then return end
+
+        local relativeX = math.clamp(
+            input.Position.X - track.AbsolutePosition.X,
+            0,
+            width
+        )
+        local alpha = relativeX / width
+        updateLabelAndPosition(minimum + (maximum - minimum) * alpha)
+    end
+
+    local function beginDrag(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1
+        or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            activeInput = input
+            updateFromInput(input)
+        end
+    end
+
+    track.InputBegan:Connect(beginDrag)
+    knob.InputBegan:Connect(beginDrag)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if not dragging then return end
+
+        if input.UserInputType == Enum.UserInputType.MouseMovement then
+            updateFromInput(input)
+        elseif input == activeInput then
+            updateFromInput(input)
+        end
+    end)
+
+    UserInputService.InputEnded:Connect(function(input)
+        if input == activeInput
+        or input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+            activeInput = nil
+        end
+    end)
+
+    updateLabelAndPosition(value)
+    return container
+end
+
+--==================================================
+-- CREAR BOTÓN DERECHO
+--==================================================
 
 local function createButton(parent,text,y,callback)
-    local hasTextbox = textboxButtons[text] ~= nil
-    local multiConfig = multiButtons[text]
 
-    local container = Instance.new("Frame", parent)
-    local custom = BUTTON_CUSTOM[text]
-  local isQuad = false
+    local hasTextbox =
+        textboxButtons[text] ~= nil
 
-for _, group in ipairs(quadButtons) do
-    for _, btn in ipairs(group) do
-        if text == btn then
-            isQuad = true
-            break
-        end
-    end
-end
+    local multiConfig =
+        multiButtons[text]
 
-if isQuad then
-    extraY = 0
-  end
+    local container =
+        Instance.new("Frame",parent)
 
-    local finalSize = BUTTON_SIZE
-    local extraX = 0
-    local extraY = 0
-
-    if custom then
-        if custom.size then
-            finalSize = custom.size
-        end
-        extraX = custom.x or 0
-        extraY = custom.y or 0
-    end
-
-    local foundQuad = false
-
-for _, group in ipairs(quadButtons) do
-    for index, btnName in ipairs(group) do
-        if text == btnName then
-            foundQuad = true
-
-            local width = 0.24
-local spacing = 5
-
-container.Size = UDim2.new(width, -spacing, 0, 30)
-
-container.Position = UDim2.new(
-    (width * (index - 1)),
-    (spacing * (index - 1)),
-    0,
-    y
-)
-
-            break
-        end
-    end
-end
-
-if not foundQuad then
-    container.Size = finalSize
-    container.Position = UDim2.new(
-        0, 10 + extraX,
-        0, y + extraY
-    )
-end
     container.BackgroundTransparency = 1
 
-    local button = Instance.new("TextButton", container)
-    button.TextColor3 = Color3.fromRGB(255,255,255)
-    button.Font = Enum.Font.GothamBold
-    button.TextSize = 14
-    button.BorderSizePixel = 0
+    container.Position =
+        UDim2.new(0,10,0,y)
 
-    -- ======================
-    -- 🔥 MULTI MODE
-    -- ======================
+    container.Size =
+        UDim2.new(1,-20,0,30)
+
+    --==================================================
+    -- MULTI
+    --==================================================
+
     if multiConfig then
-        button.Size = UDim2.new(1,0,1,0)
+
+        local button =
+            Instance.new("TextButton",container)
+
+        button.Size =
+            UDim2.new(1,0,1,0)
+
+        button.BackgroundColor3 =
+            Color3.fromRGB(20,20,20)
+
+        button.BorderSizePixel = 0
+
         button.Text = ""
-        button.BackgroundColor3 = Color3.fromRGB(20,20,20)
 
-        getgenv().SBS_MULTI = getgenv().SBS_MULTI or {}
-        local index = getgenv().SBS_MULTI[text] or 0
-        local options = multiConfig.options
+        local label =
+            Instance.new("TextLabel",button)
 
-        local label = Instance.new("TextLabel", button)
-        label.Size = UDim2.new(1,0,1,0)
+        label.Size =
+            UDim2.new(1,0,1,0)
+
         label.BackgroundTransparency = 1
+
+        label.Font =
+            Enum.Font.GothamBold
+
         label.TextSize = 14
-        label.Font = Enum.Font.GothamBold
+
+        getgenv().SBS_MULTI =
+            getgenv().SBS_MULTI or {}
+
+        local index =
+            getgenv().SBS_MULTI[text] or 0
+
+        local options =
+            multiConfig.options
 
         local function update()
+
             if index == 0 then
-                label.Text = text
-                label.TextColor3 = Color3.fromRGB(255,255,255)
+
+                label.Text =
+                    text
+
+                label.TextColor3 =
+                    rightButtonTextColors[text]
+                    or Color3.fromRGB(
+                        255,255,255
+                    )
+
             else
-                local opt = options[index]
-                label.Text = opt.name
-                label.TextColor3 = opt.color
-                if index ~= 0 then
-    local opt = options[index]
 
-    -- borrar variables anteriores
-    for _, option in ipairs(options) do
-        if option.name then
-            getgenv()[option.name] = nil
-        end
-    end
+                local option =
+                    options[index]
 
-    -- activar solo la actual
-    for _, option in ipairs(options) do
-    if option.variable then
-        getgenv()[option.variable] = false
-    end
-end
+                label.Text =
+                    option.name
 
-if opt.variable then
-    getgenv()[opt.variable] = true
-end
+                label.TextColor3 =
+                    option.color
+
+                for _,v in ipairs(options) do
+
+                    if v.variable then
+                        getgenv()[v.variable] = false
+                    end
+
                 end
+
+                if option.variable then
+                    getgenv()[option.variable] = true
+                end
+
             end
+
         end
 
         update()
 
         button.MouseButton1Click:Connect(function()
+
             index += 1
-            if index > #options then index = 1 end
-            getgenv().SBS_MULTI[text] = index
+
+            if index > #options then
+                index = 1
+            end
+
+            getgenv().SBS_MULTI[text] =
+                index
+
             update()
+
         end)
 
         return
     end
 
--- ======================
--- TEXTBOX MODE (CORTO Y FIXED)
--- ======================
-if hasTextbox then
-    button:Destroy()
+    --==================================================
+    -- TEXTBOX
+    --==================================================
 
-    local box = Instance.new("TextBox", container)
-    box.Size = UDim2.new(1,0,1,0)
-    box.BackgroundColor3 = Color3.fromRGB(25,25,25)
-    box.TextColor3 = Color3.fromRGB(255,255,255)
-    box.PlaceholderText = text
-    box.Text = ""
-    box.Font = Enum.Font.GothamBold
-    box.TextSize = 14
-    box.BorderSizePixel = 0
+    if hasTextbox then
 
-    local data = textboxButtons[text]
+        local box =
+            Instance.new("TextBox",container)
 
-    -- 🔥 cargar valor guardado
-    if data and getgenv()[data.variable] ~= nil then
-        box.Text = tostring(getgenv()[data.variable])
-    end
+        box.Size =
+            UDim2.new(1,0,1,0)
 
-    -- 🔢 SOLO NÚMEROS (EN TIEMPO REAL)
-    box:GetPropertyChangedSignal("Text"):Connect(function()
-        if numericBoxes[text] then
-            box.Text = box.Text:gsub("[^%d%.%-]", "")
-        end
-    end)
+        box.BackgroundColor3 =
+            Color3.fromRGB(20,20,20)
 
-    -- 💾 GUARDAR
-    box.FocusLost:Connect(function()
-        local input = box.Text
-        if input == "" then return end
+        box.BorderSizePixel = 0
 
-        local value
+        box.PlaceholderText =
+            text
 
-        if numericBoxes[text] then
-            value = tonumber(input)
-            if not value then
-                box.Text = tostring(getgenv()[data.variable] or "")
+        box.Text = ""
+
+        box.TextColor3 =
+            rightButtonTextColors[text]
+            or Color3.fromRGB(255,255,255)
+
+        box.Font =
+            Enum.Font.GothamBold
+
+        box.TextSize = 14
+
+        local data =
+            textboxButtons[text]
+
+        box:GetPropertyChangedSignal(
+            "Text"
+        ):Connect(function()
+
+            if numericBoxes[text] then
+
+                box.Text =
+                    box.Text:gsub(
+                        "[^%d%.%-]",
+                        ""
+                    )
+
+            end
+
+        end)
+
+        box.FocusLost:Connect(function()
+
+            if box.Text == "" then
                 return
             end
-        else
-            value = input
-        end
 
-        -- ❌ no repetir
-        if getgenv()[data.variable] == value then return end
+            local value
 
-        getgenv()[data.variable] = value
+            if numericBoxes[text] then
 
-        if data.url then
-            loadstring(game:HttpGet(data.url))()
-        end
-    end)
+                value =
+                    tonumber(box.Text)
 
-    return -- 🔥 CLAVE
-    end
-    -- 🔹 BOTÓN NORMAL (TU SISTEMA)
-    button.Size = UDim2.new(1,0,1,0)
+                if not value then
+                    return
+                end
 
-    local isRedToggle = redToggleButtons[text]
-local isToggle = isRedToggle or not noToggleButtons[text]
+            else
 
-    if isToggle then
-        if buttonStates[text] == nil then
-            buttonStates[text] = false
-        end
+                value =
+                    box.Text
 
-        local function updateVisual()
-    if isRedToggle then
-        button.Text = text
-
-        if buttonStates[text] then
-            button.BackgroundColor3 = Color3.fromRGB(120,0,0)
-        else
-            button.BackgroundColor3 = Color3.fromRGB(20,20,20)
-        end
-    else
-        if buttonStates[text] then
-            button.Text = text.." [ON]"
-            button.BackgroundColor3 = Color3.fromRGB(0,120,0)
-        else
-            button.Text = text.." [OFF]"
-            button.BackgroundColor3 = Color3.fromRGB(20,20,20)
-        end
-    end
-end
-
-        updateVisual()
-
-        button.MouseButton1Click:Connect(function()
-            buttonStates[text] = not buttonStates[text]
-            updateVisual()
-            callback(buttonStates[text])
-        end)
-
-    else
-        button.Text = text
-        button.BackgroundColor3 = Color3.fromRGB(20,20,20)
-
-        local clicking = false
-
-button.MouseButton1Click:Connect(function()
-    if clicking then return end -- 🔥 evita spam
-    clicking = true
-
-    if not noGreenFlash[text] then
-        local oldColor = button.BackgroundColor3
-        button.BackgroundColor3 = Color3.fromRGB(0,120,0)
-
-        task.delay(0.5,function() -- más rápido
-            if button then
-                button.BackgroundColor3 = oldColor
             end
-            clicking = false
+
+            getgenv()[data.variable] =
+                value
+
+            if data.url then
+
+                pcall(function()
+
+                    loadstring(
+                        game:HttpGet(
+                            data.url
+                        )
+                    )()
+
+                end)
+
+            end
+
         end)
+
     else
-        clicking = false
+
+        --==================================================
+        -- BOTÓN NORMAL
+        --==================================================
+
+        local button =
+            Instance.new(
+                "TextButton",
+                container
+            )
+
+        button.Size =
+            UDim2.new(1,0,1,0)
+
+        button.Text =
+            text
+
+        button.BackgroundColor3 =
+            Color3.fromRGB(20,20,20)
+
+        button.BorderSizePixel = 0
+
+        button.TextColor3 =
+            rightButtonTextColors[text]
+            or Color3.fromRGB(
+                255,255,255
+            )
+
+        button.Font =
+            Enum.Font.GothamBold
+
+        button.TextSize = 14
+
+        --==================================================
+        -- TOGGLE
+        --==================================================
+
+        local isToggle =
+            not noToggleButtons[text]
+
+        if isToggle then
+
+            if buttonStates[text] == nil then
+                buttonStates[text] = false
+            end
+
+            local function update()
+
+                if buttonStates[text] then
+
+                    button.Text =
+                        text.." [ON]"
+
+                    if redToggleButtons[text] then
+
+                        button.BackgroundColor3 =
+                            Color3.fromRGB(
+                                120,0,0
+                            )
+
+                    else
+
+                        button.BackgroundColor3 =
+                            Color3.fromRGB(
+                                0,120,0
+                            )
+
+                    end
+
+                else
+
+                    button.Text =
+                        text.." [OFF]"
+
+                    button.BackgroundColor3 =
+                        Color3.fromRGB(
+                            20,20,20
+                        )
+
+                end
+
+                button.TextColor3 =
+                    rightButtonTextColors[text]
+                    or Color3.fromRGB(
+                        255,255,255
+                    )
+
+            end
+
+            update()
+
+            button.MouseButton1Click:Connect(function()
+
+                buttonStates[text] =
+                    not buttonStates[text]
+
+                update()
+
+                if callback then
+                    callback(
+                        buttonStates[text]
+                    )
+                end
+
+            end)
+
+        else
+
+            button.MouseButton1Click:Connect(function()
+
+                if not noGreenFlash[text] then
+
+                    local oldColor =
+                        button.BackgroundColor3
+
+                    button.BackgroundColor3 =
+                        Color3.fromRGB(
+                            0,120,0
+                        )
+
+                    task.delay(
+                        0.4,
+                        function()
+
+                            if button then
+
+                                button.BackgroundColor3 =
+                                    oldColor
+
+                            end
+
+                        end
+                    )
+
+                end
+
+                if callback then
+                    callback()
+                end
+
+            end)
+
+        end
+
     end
 
-    if callback then
-        callback()
-    end
-end)
-    end
 end
-    
--- ======================
--- SCROLL POR SUBMENU
--- ======================
-local scrollConfig = {
-    ["MAIN"] = true,
-    ["ESP"] = true,
-    ["INOCENT"] = true,
-    ["SHERIFF"] = true,
-    ["MURDERER"] = true,
-    ["TELEPORT"] = true,
-    ["FAKEBOMB"] = true,
-    ["FLING"] = true,
-    ["AUTO FARM"] = true,
-    ["Fps"] = false,
-    ["YOUTUBE"] = false
-}
--- ======================
--- MENUS
--- ======================
-local menuOrder = {"MAIN","ESP","INOCENT","SHERIFF","MURDERER","TELEPORT","FAKEBOMB","FLING","AUTO FARM","Fps","YOUTUBE"}
-local menuData = {
-    ["MAIN"] = {
-    "DESYNC",
-    "INVISIBLE",
-    "JUMP(BUTTON)",
-    "SPEED",
-    "JUMPPOWER",
-    "GRAVITY",
-    "RESET STATS",
-    "NOCLIP",
-    "INFINITI JUMP",
-    "FLY SPEED",
-    "FLY",
-},
-    ["MURDERER"] = {
-        "KILL ALL",
-        "KILL SHERIFF",
-        "HITBOX EXTENDER",
-        "SIZE",
-        "TRASPARENCY 0-1",
-    },
-    ["INOCENT"] = {
-        "GRAB GUN",
-        "AUTO GRAB GUN",
-    },
-    ["FLING"] = {
-        "TOUCH FLING",
-        "POWER",
-        "PLAYER NAME.",
-        "FLING PLAYER",
-    },
-    ["ESP"] = {
-        "ESP PLAYERS",
-        "ESP GUN",
-        "NO ESP TO ME",
-        "ESP NAME",
-        "ESP ABILITY",
-        "X-RAY",
-        "XRAY-TRANSPARENCY",
-        
-    },
-    ["TELEPORT"] = {
-        "MAP",
-        "LOBBY",
-        "PLAYER NAM",
-        "TP TO PLAYER",
-    },
-    ["FAKEBOMB"] = {
-        "AUTO DOUBLE JUMP",
-        "AUTO DOUBLE JUMP (FAST)",
-        "AUTO DOUBLE JUMP (EQUIP TOOL)",
-        "MODE: NORMAL",
-        "JUMP POWER OF THE DOUBLE JUMP",  
-        "AUTO EQUIP FAKEBOMB",
-    },
-    ["AUTO FARM"] = {
-        "AUTO FARM KILLS (beta)",
-    },
-    ["SHERIFF"] = {
-        "SHOOT THE MURDERER",
-        "SHOOT THE MURDERER (BUTTON)",
-        "¿ONLY VISIBLE?",
-        "AUTO SHOOT THE MURDERER",
-        "MODE: NO EQUIPPED KNIFE",
-    },
-    ["Fps"] = {
-        "Fps Boost"
-    },
-    ["YOUTUBE"] = {
-        "YOUTUBE:SBS HUB",
-        "SUSCRIBETE:)"
-    }
+
+--==================================================
+-- MENÚ
+--==================================================
+
+local menuOrder = {
+    "MAIN",
+    "ESP",
+    "COMBATE",
+    "GAMEPASS",
+    "AUTO",
+    "TELEPORT",
+    "LABELS",
+    "FPS"
 }
 
+local menuData = {
+
+    ["MAIN"] = {
+
+        "INVISIBLE",
+        "DESYNC",
+        "OBTENER SHIFTLOCK",
+        "SPEED",
+        "JUMPPOWER",
+        "GRAVITY",
+        "RESET STATS",
+        "INFINITI JUMP",
+        "NOCLIP",
+        "FLY SPEED",
+        "FLY",
+
+    },
+
+    ["ESP"] = {
+
+        "ESP DEATH COUNTER",
+        "ESP ULTI",
+
+    },
+
+    ["GAMEPASS"] = {
+
+        "MAS ESPACIO PARA EMOTES",
+
+    },
+
+    ["AUTO"] = {
+
+        "AUTO RECOGER OBJETOS",
+        "AUTO ABRIR PUERTAS",
+
+    },
+
+    ["COMBATE"] = {
+        "AUTO UPPERCUT",
+        "AUTO DOWNLAP",
+        "AUTO WALLCOMBO",
+        "CONTRATAQUE AUTOMÁTICO A M1",
+        "DISTANCIA DE LA DETECCIÓN DE M1",
+        "BLOQUEO AUTOMÁTICO A M1",
+        "DISTANCIA DE LA DETECCIÓN DEL M1",
+
+    },
+
+    ["TELEPORT"] = {
+
+        "TP TOOL",
+        "NOMBRE DE EL JUGADOR",
+        "TP A JUGADOR",
+
+    },
+
+    ["LABELS"] = {
+
+        "CONTADOR DE PING",
+        "CONTADOR DE FPS",
+
+    },
+
+    ["FPS"] = {
+        "BAJAR LOS GRÁFICOS",
+        "QUITAR LOS EFECTOS",
+        "CAMBIAR FPS",
+
+    },
+
+}
+
+--==================================================
+-- LIMPIAR DERECHO
+--==================================================
 
 local function clearFrame(frame)
-    for _,v in pairs(frame:GetChildren()) do
-        if not v:IsA("UIPadding") then
-            if v:IsA("TextButton") or v:IsA("TextLabel") or v:IsA("Frame") then
-                v:Destroy()
-            end
+
+    for _,v in ipairs(frame:GetChildren()) do
+
+        if v:IsA("GuiObject")
+        and not v:IsA("UIPadding") then
+
+            v:Destroy()
+
         end
+
     end
-    frame.CanvasPosition = Vector2.new(0,0)
+
 end
+
+--==================================================
+-- CREAR MENÚS
+--==================================================
 
 for i,menu in ipairs(menuOrder) do
-    createMenuButton(leftFrame, menu, 10+(i-1)*35, function()
-    clearFrame(rightFrame)
-        -- scroll
-        if scrollConfig[menu] then
-            rightFrame.ScrollBarThickness = 6
-            rightFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
-        else
-            rightFrame.ScrollBarThickness = 0
-            rightFrame.AutomaticCanvasSize = Enum.AutomaticSize.None
-            rightFrame.CanvasSize = UDim2.new(0,0,0,0)
-        end
 
-        local titleLabel = Instance.new("TextLabel", rightFrame)
-        titleLabel.Size = UDim2.new(1,0,0,30)
-        titleLabel.BackgroundTransparency = 1
-        titleLabel.Text = menuNames[menu] or menu
-        titleLabel.TextColor3 = Color3.fromRGB(255,255,255)
-        titleLabel.Font = Enum.Font.GothamBold
-        titleLabel.TextSize = 18
+    createMenuButton(
+        leftFrame,
+        menu,
+        10 + ((i-1)*35),
+        function()
 
-        local oy = 40
+            -- REINICIAR SCROLL
+            rightFrame.CanvasPosition =
+                Vector2.new(0,0)
 
-        for _,opt in ipairs(menuData[menu]) do
+            clearFrame(rightFrame)
 
-    -- CREAR TITULO SI EXISTE
-    if buttonTitles[opt] then
-        local section = Instance.new("TextLabel", rightFrame)
-        section.Size = UDim2.new(1,-20,0,25)
-        section.Position = UDim2.new(0,10,0,oy)
-        section.BackgroundTransparency = 1
-        section.Text = buttonTitles[opt]
-        section.TextColor3 = Color3.fromRGB(200,200,200)
-        section.Font = Enum.Font.GothamBold
-        section.TextSize = 16
-        section.TextXAlignment = Enum.TextXAlignment.Left
+            --==================================================
+            -- TÍTULO GRANDE
+            --==================================================
 
-        oy += 30
-    end
+            local titleLabel =
+                Instance.new(
+                    "TextLabel",
+                    rightFrame
+                )
 
-    local topTitle = topTitles[opt]
+            titleLabel.Size =
+                UDim2.new(1,0,0,30)
 
-if topTitle then
-    local section = Instance.new("TextLabel", rightFrame)
-    section.Size = UDim2.new(1,0,0,30)
-    section.Position = UDim2.new(0,0,0,oy)
-    section.BackgroundTransparency = 1
-    section.Text = topTitle
-    section.TextColor3 = Color3.fromRGB(255,255,255)
-    section.Font = Enum.Font.GothamBold
-    section.TextSize = 18
-    section.TextXAlignment = Enum.TextXAlignment.Center
+            titleLabel.Position =
+                UDim2.new(0,0,0,5)
 
-    oy += 35 -- 🔥 baja el botón
-                end
+            titleLabel.BackgroundTransparency = 1
 
-    createButton(rightFrame,opt,oy,function(state)
+            titleLabel.Text =
+                menuNames[menu] or menu
 
-        if opt == "RESET STATS" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Reset-speed-jumpPower-y-gravedad-/refs/heads/main/Reset.lua"))()
+            titleLabel.TextColor3 =
+                menuTitleColors[menu]
+                or Color3.fromRGB(
+                    255,255,255
+                )
 
-        elseif opt == "ESP PLAYERS" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text154/refs/heads/main/Text154.lua"))()
-            
-        elseif opt == "NO ESP TO ME" then
-            loadstring("getgenv().HIGHLIGHT_ME = not getgenv().HIGHLIGHT_ME")()
-                            
-        elseif opt == "ESP NAME" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text418/refs/heads/main/Text418.lua"))()
-                            
-        elseif opt == "ESP DISTANCE" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text419/refs/heads/main/Text419.lua"))()
-                            
-        elseif opt == "ESP TRACERS" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text420/refs/heads/main/Text420.lua"))()
+            titleLabel.Font =
+                Enum.Font.GothamBold
 
-        elseif opt == "KILL ALL" then
-            getgenv().TARGET = "All"
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text16/refs/heads/main/Text16.lua"))()
-                            
-        elseif opt == "KILL SHERIFF" then
-            getgenv().TARGET = "Sheriff"
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text16/refs/heads/main/Text16.lua"))()
-                            
-        elseif opt == "KILL PLAYER" then
-            loadstring(game:HttpGet(""))()
+            titleLabel.TextSize = 18
 
-        elseif opt == "INVISIBLE" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text427/refs/heads/main/Text427.lua"))()
-                            
-        elseif opt == "MAP" then
-            getgenv().TP_MODE = "JUMPPAD"
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text430/refs/heads/main/Text430.lua"))()
-                            
-        elseif opt == "DESYNC" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text428/refs/heads/main/Text428.lua"))()
+            titleLabel.TextXAlignment =
+                Enum.TextXAlignment.Center
 
-        elseif opt == "AUTO KILL SHERIFF" then
-            loadstring(game:HttpGet(""))()
-                            
-        elseif opt == "LOBBY" then
-            getgenv().TP_MODE = "LOBBY"
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text430/refs/heads/main/Text430.lua"))()
+            --==================================================
+            -- ICONO DEL TÍTULO GRANDE
+            --==================================================
 
-        elseif opt == "AUTO DOUBLE JUMP" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text318/refs/heads/main/Text318.lua"))()
-                            
-        elseif opt == "AUTO DOUBLE JUMP (FAST)" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text319/refs/heads/main/Text319.lua"))()
-                            
-        elseif opt == "HITBOX EXTENDER" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text368/refs/heads/main/Text368.lua"))()
+            local titleIconId =
+                rightTitleIcons[
+                    menuNames[menu] or menu
+                ]
 
-        elseif opt == "SHOOT THE MURDERER (BUTTON)" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text27/refs/heads/main/Text27.lua"))()
-                            
-        elseif opt == "¿ONLY VISIBLE?" then
-            loadstring("getgenv().OnlyVisible = not getgenv().OnlyVisible")()
-                            
-        elseif opt == "MAP" then
-            getgenv().TeleportMode = "mapa"
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text327/refs/heads/main/Text327.lua"))()
+            if titleIconId then
 
-        elseif opt == "LOBBY" then
-            getgenv().TeleportMode = "lobby"
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text327/refs/heads/main/Text327.lua"))()
-                            
-        elseif opt == "GRAB GUN" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text152/refs/heads/main/Text152.lua"))()
-                            
-        elseif opt == "AUTO SHOOT THE MURDERER" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text146/refs/heads/main/Text146.lua"))()
+                local titleIcon =
+                    Instance.new("ImageLabel")
 
-        elseif opt == "" then
-            loadstring(game:HttpGet(""))()
-                            
-        elseif opt == "" then
-            getgenv().TP_MODE = "LOBBY"
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text430/refs/heads/main/Text430.lua"))()
-              
-        elseif opt == "AUTO GRAB GUN" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text153/refs/heads/main/Text153.lua"))()
-                            
-        elseif opt == "FLING PLAYER" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text156/refs/heads/main/Text156.lua"))()
+                titleIcon.Name =
+                    "TitleIcon"
 
-        elseif opt == "AIMBOT LIGERO" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text422/refs/heads/main/Text422.lua"))()
-                            
-        elseif opt == "AIMBOT INSTANT" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text423/refs/heads/main/Text423.lua"))()
-                            
-        elseif opt == "AIMBOT OP" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text421/refs/heads/main/Text421.lua"))()
+                titleIcon.Parent =
+                    titleLabel
 
-        elseif opt == "X-RAY" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text147/refs/heads/main/Text147.lua"))()
-                            
-        elseif opt == "TP TO PLAYER" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text408/refs/heads/main/Text408.lua"))()
+                titleIcon.Size =
+                    UDim2.new(0,22,0,22)
 
-        elseif opt == "BULLET TRACERS" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text434/refs/heads/main/Text434.lua"))()      
-        
-        elseif opt == "FLY" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Fly/refs/heads/main/Fly.lua"))()
+                titleIcon.Position =
+                    UDim2.new(
+                        1,-30,
+                        0.5,-11
+                    )
 
-        elseif opt == "INFINITI JUMP" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/INFINITI-JUMP/refs/heads/main/Salto%20infinito.lua",true))()
+                titleIcon.BackgroundTransparency =
+                    1
 
-        elseif opt == "SHOOT THE MURDERER" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text314/refs/heads/main/Text314.lua",true))()
+                titleIcon.Image =
+                    titleIconId
 
-        elseif opt == "LOCALPLAYER" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text8/refs/heads/main/Text8.lua"))()
+                titleIcon.ScaleType =
+                    Enum.ScaleType.Fit
 
-        elseif opt == "NOCLIP" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/NOCLIP/refs/heads/main/NOCLIP.lua"))()
-
-        elseif opt == "HITBOX EXTENDER" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text368/refs/heads/main/Text368.lua"))()
-
-        elseif opt == "Fps Boost" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Fps-Boost-/refs/heads/main/FPS_BOOST_UNIVERSAL.lua"))()
-
-        elseif opt == "YOUTUBE:SBS HUB" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Copiar-canal/refs/heads/main/Suscribete.lua"))()
-
-        elseif opt == "TP TOOL" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text331/refs/heads/main/Text331.lua"))()
-                            
-        end
-
-    end)
-    local custom = BUTTON_CUSTOM[opt]
-local offsetY = custom and custom.y or 0
-
-local skipY = false
-
-for _, group in ipairs(quadButtons) do
-    for i = 1, #group do
-        if opt == group[i] then
-            if i ~= #group then
-                skipY = true
-            end
-        end
-    end
-end
-        if not skipY then
-    oy += 40 + offsetY
-        end
-local customTitle = customTitles[opt]
-
-if customTitle then
-    local section = Instance.new("TextLabel", rightFrame)
-    section.Size = UDim2.new(1,-20,0,30)
-    section.Position = UDim2.new(0,10,0,oy)
-    section.BackgroundTransparency = 1
-    section.Text = customTitle
-    section.TextColor3 = Color3.fromRGB(255,255,255)
-    section.Font = Enum.Font.GothamBold
-    section.TextSize = 18
-    section.TextXAlignment = Enum.TextXAlignment.Center
-    
-    oy += 35
-                end
             end
 
-end)
+            local oy = 40
+
+            for _,opt in ipairs(
+                menuData[menu] or {}
+            ) do
+
+                --==================================================
+                -- TITULO / SUBTÍTULO
+                --==================================================
+
+                if buttonTitles[opt] then
+
+                    local section =
+                        Instance.new(
+                            "TextLabel",
+                            rightFrame
+                        )
+
+                    section.Size =
+                        UDim2.new(
+                            1,-20,
+                            0,25
+                        )
+
+                    section.Position =
+                        UDim2.new(
+                            0,10,
+                            0,oy
+                        )
+
+                    section.BackgroundTransparency = 1
+
+                    section.Text =
+                        buttonTitles[opt]
+
+                    section.TextColor3 =
+                        Color3.fromRGB(
+                            200,200,200
+                        )
+
+                    section.Font =
+                        Enum.Font.GothamBold
+
+                    section.TextSize = 14
+
+                    section.TextXAlignment =
+                        Enum.TextXAlignment.Left
+
+                    --==================================================
+                    -- ICONO DEL SUBTÍTULO
+                    --==================================================
+
+                    local subtitleIconId =
+                        rightSubtitleIcons[
+                            buttonTitles[opt]
+                        ]
+
+                    if subtitleIconId then
+
+                        local subtitleIcon =
+                            Instance.new("ImageLabel")
+
+                        subtitleIcon.Name =
+                            "SubtitleIcon"
+
+                        subtitleIcon.Parent =
+                            section
+
+                        subtitleIcon.Size =
+                            UDim2.new(
+                                0,18,
+                                0,18
+                            )
+
+                        subtitleIcon.Position =
+                            UDim2.new(
+                                1,-20,
+                                0.5,-9
+                            )
+
+                        subtitleIcon.BackgroundTransparency =
+                            1
+
+                        subtitleIcon.Image =
+                            subtitleIconId
+
+                        subtitleIcon.ScaleType =
+                            Enum.ScaleType.Fit
+
+                    end
+
+                    oy += 28
+
+                end
+
+                --==================================================
+                -- TITULO SUPERIOR
+                --==================================================
+
+                if topTitles[opt] then
+
+                    local section =
+                        Instance.new(
+                            "TextLabel",
+                            rightFrame
+                        )
+
+                    section.Size =
+                        UDim2.new(
+                            1,-20,
+                            0,25
+                        )
+
+                    section.Position =
+                        UDim2.new(
+                            0,10,
+                            0,oy
+                        )
+
+                    section.BackgroundTransparency = 1
+
+                    section.Text =
+                        topTitles[opt]
+
+                    section.TextColor3 =
+                        Color3.fromRGB(
+                            255,255,255
+                        )
+
+                    section.Font =
+                        Enum.Font.GothamBold
+
+                    section.TextSize = 16
+
+                    section.TextXAlignment =
+                        Enum.TextXAlignment.Left
+
+                    --==================================================
+                    -- ICONO
+                    --==================================================
+
+                    local subtitleIconId =
+                        rightSubtitleIcons[
+                            topTitles[opt]
+                        ]
+
+                    if subtitleIconId then
+
+                        local subtitleIcon =
+                            Instance.new("ImageLabel")
+
+                        subtitleIcon.Name =
+                            "SubtitleIcon"
+
+                        subtitleIcon.Parent =
+                            section
+
+                        subtitleIcon.Size =
+                            UDim2.new(
+                                0,18,
+                                0,18
+                            )
+
+                        subtitleIcon.Position =
+                            UDim2.new(
+                                1,-20,
+                                0.5,-9
+                            )
+
+                        subtitleIcon.BackgroundTransparency =
+                            1
+
+                        subtitleIcon.Image =
+                            subtitleIconId
+
+                        subtitleIcon.ScaleType =
+                            Enum.ScaleType.Fit
+
+                    end
+
+                    oy += 28
+
+                end
+
+                --==================================================
+                -- BOTÓN
+                --==================================================
+
+                createButton(
+                    rightFrame,
+                    opt,
+                    oy,
+                    function(state)
+
+                        if opt ==
+                            "RESET STATS" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Reset-speed-jumpPower-y-gravedad-/refs/heads/main/Reset.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "AUTO WALLCOMBO" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text233/refs/heads/main/Text233.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "GODMODE" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text497/refs/heads/main/Text497.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "CONTRATAQUE AUTOMÁTICO A M1" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text502/refs/heads/main/Text502.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "ESP ULTI" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text503/refs/heads/main/Text503.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "CONTADOR DE PING" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Detector_ping/refs/heads/main/Ping.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "CONTADOR DE FPS" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Detectar_fps/refs/heads/main/Fps.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "BLOQUEO AUTOMÁTICO A M1" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text241/refs/heads/main/Text241.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "MAS ESPACIO PARA EMOTES" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text504/refs/heads/main/Text504.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "ESP DEATH COUNTER" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text249/refs/heads/main/Text249.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "DESYNC" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text428/refs/heads/main/Text428.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "QUITAR LOS EFECTOS" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text508/refs/heads/main/Text508.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "LAG SERVER (EQUIPAR BOMBA)" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text470/refs/heads/main/Text470.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "ESTAR EN LA ETAPA 99.900M" then
+
+                            getgenv().StageNumber =
+                                99999000000
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text66/refs/heads/main/Text66.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "PARAR EL TIEMPO" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text471/refs/heads/main/Text471.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "SER GUARDIA" then
+
+                            getgenv().StageNumber = 21
+
+                            pcall(function()
+
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text66/refs/heads/main/Text66.lua"))()
+
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text67/refs/heads/main/Text67.lua"))()
+
+                            end)
+
+                        elseif opt ==
+                            "SER PRISIONERO" then
+
+                            getgenv().StageNumber = 1
+
+                            pcall(function()
+
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Reset_Player/refs/heads/main/Reset.lua"))()
+
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text66/refs/heads/main/Text66.lua"))()
+
+                            end)
+
+                        elseif opt ==
+                            "ESP A JUGADORES" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text473/refs/heads/main/Text473.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "ESP A BARRY" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text474/refs/heads/main/Text474.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "AUTO ARRESTAR" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text56/refs/heads/main/Text56.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "SER FUERTE" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text475/refs/heads/main/Text475.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "COCINAR GENTE (BOTON)" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text476/refs/heads/main/Text476.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "OBTENER SHIFTLOCK" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Shift-lock/refs/heads/main/Shift_Lock_.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "FLING PLAYER" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text156/refs/heads/main/Text156.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "QUITAR LAS PAREDES INVISIBLES" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text365/refs/heads/main/Text365.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "AIMBOT TOTAL" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text93/refs/heads/main/Text93.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "X-RAY" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text147/refs/heads/main/Text147.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "TP TO PLAYER" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text408/refs/heads/main/Text408.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "AIMBOT LIGERO" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text422/refs/heads/main/Text422.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "FLY" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Fly/refs/heads/main/Fly.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "INFINITI JUMP" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/INFINITI-JUMP/refs/heads/main/Salto%20infinito.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "SHOOT THE MURDERER" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text314/refs/heads/main/Text314.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "LOCALPLAYER" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text8/refs/heads/main/Text8.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "NOCLIP" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/NOCLIP/refs/heads/main/NOCLIP.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "ESP PANELS" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text211/refs/heads/main/Text211.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "BAJAR LOS GRÁFICOS" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Fps-Boost-/refs/heads/main/FPS_BOOST_UNIVERSAL.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "INVISIBLE" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text427/refs/heads/main/Text427.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "TOUCH FLING" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text281/refs/heads/main/Text281.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "YOUTUBE:SBS HUB" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Copiar-canal/refs/heads/main/Suscribete.lua"))()
+                            end)
+
+                        elseif opt ==
+                            "TP TOOL" then
+
+                            pcall(function()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text331/refs/heads/main/Text331.lua"))()
+                            end)
+
+                        end
+
+                    end
+                )
+
+                --==================================================
+                -- DESCRIPCIÓN
+                --==================================================
+
+                local descriptionText =
+                    buttonDescriptions[opt]
+
+                local buttonHeight = 30
+
+                if descriptionText then
+
+                    local descriptionHeight =
+                        getDescriptionHeight(
+                            descriptionText
+                        )
+
+                    local description =
+                        Instance.new(
+                            "TextLabel",
+                            rightFrame
+                        )
+
+                    description.Size =
+                        UDim2.new(
+                            1,-30,
+                            0,descriptionHeight
+                        )
+
+                    description.Position =
+                        UDim2.new(
+                            0,15,
+                            0,
+                            oy + 33
+                        )
+
+                    description.BackgroundTransparency = 1
+
+                    description.Text =
+                        descriptionText
+
+                    description.TextColor3 =
+                        Color3.fromRGB(
+                            135,135,135
+                        )
+
+                    description.Font =
+                        Enum.Font.Gotham
+
+                    description.TextSize = 10
+
+                    description.TextWrapped = true
+
+                    description.TextXAlignment =
+                        Enum.TextXAlignment.Left
+
+                    description.TextYAlignment =
+                        Enum.TextYAlignment.Top
+
+                    buttonHeight +=
+                        descriptionHeight + 8
+
+                end
+
+                --==================================================
+                -- ESPACIO AUTOMÁTICO
+                --==================================================
+
+                oy +=
+                    buttonHeight + 8
+
+                --==================================================
+                -- TÍTULO PERSONALIZADO
+                --==================================================
+
+                if customTitles[opt] then
+
+                    local section =
+                        Instance.new(
+                            "TextLabel",
+                            rightFrame
+                        )
+
+                    section.Size =
+                        UDim2.new(
+                            1,-20,
+                            0,25
+                        )
+
+                    section.Position =
+                        UDim2.new(
+                            0,10,
+                            0,oy
+                        )
+
+                    section.BackgroundTransparency = 1
+
+                    section.Text =
+                        customTitles[opt]
+
+                    section.TextColor3 =
+                        Color3.fromRGB(
+                            255,255,255
+                        )
+
+                    section.Font =
+                        Enum.Font.GothamBold
+
+                    section.TextSize = 15
+
+                    section.TextXAlignment =
+                        Enum.TextXAlignment.Center
+
+                    --==================================================
+                    -- ICONO DEL TÍTULO PERSONALIZADO
+                    --==================================================
+
+                    local subtitleIconId =
+                        rightSubtitleIcons[
+                            customTitles[opt]
+                        ]
+
+                    if subtitleIconId then
+
+                        local subtitleIcon =
+                            Instance.new("ImageLabel")
+
+                        subtitleIcon.Name =
+                            "SubtitleIcon"
+
+                        subtitleIcon.Parent =
+                            section
+
+                        subtitleIcon.Size =
+                            UDim2.new(
+                                0,18,
+                                0,18
+                            )
+
+                        subtitleIcon.Position =
+                            UDim2.new(
+                                1,-20,
+                                0.5,-9
+                            )
+
+                        subtitleIcon.BackgroundTransparency =
+                            1
+
+                        subtitleIcon.Image =
+                            subtitleIconId
+
+                        subtitleIcon.ScaleType =
+                            Enum.ScaleType.Fit
+
+                    end
+
+                    oy += 30
+
+                end
+
+            end
+
+        end
+    )
+
 end
 
--- ICONO SBS PARA ABRIR/CERRAR
-local toggle = Instance.new("TextButton", screenGui)
-toggle.Size = UDim2.new(0,60,0,60)
-toggle.Position = UDim2.new(1,-80,0,20)
-toggle.BackgroundColor3 = Color3.fromRGB(20,20,20)
-toggle.Text = "SBS"
-toggle.TextColor3 = Color3.fromRGB(255,255,255)
-toggle.Font = Enum.Font.GothamBold
+--==================================================
+-- BOTÓN SBS
+--==================================================
+
+local toggle =
+    Instance.new(
+        "TextButton",
+        screenGui
+    )
+
+toggle.Size =
+    UDim2.new(0,60,0,60)
+
+toggle.Position =
+    UDim2.new(1,-80,0,20)
+
+toggle.BackgroundColor3 =
+    Color3.fromRGB(20,20,20)
+
+toggle.Text =
+    "SBS"
+
+toggle.TextColor3 =
+    Color3.fromRGB(255,255,255)
+
+toggle.Font =
+    Enum.Font.GothamBold
+
 toggle.TextSize = 24
+
 toggle.BorderSizePixel = 0
-local corner = Instance.new("UICorner", toggle)
-corner.CornerRadius = UDim.new(0.3,0)
+
+local corner =
+    Instance.new(
+        "UICorner",
+        toggle
+    )
+
+corner.CornerRadius =
+    UDim.new(0.3,0)
+
+--==================================================
+-- DRAG SBS
+--==================================================
+
 do
-    local dragging, dragStart, startPos, dragInput
+
+    local dragging = false
+    local dragStart
+    local startPos
+    local dragInput
+
     local function update(input)
-        local delta = input.Position - dragStart
-        toggle.Position = UDim2.new(
-            startPos.X.Scale, startPos.X.Offset + delta.X,
-            startPos.Y.Scale, startPos.Y.Offset + delta.Y
-        )
+
+        local delta =
+            input.Position - dragStart
+
+        toggle.Position =
+            UDim2.new(
+                startPos.X.Scale,
+                startPos.X.Offset + delta.X,
+                startPos.Y.Scale,
+                startPos.Y.Offset + delta.Y
+            )
+
     end
+
     toggle.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+
+        if input.UserInputType ==
+            Enum.UserInputType.MouseButton1
+        or input.UserInputType ==
+            Enum.UserInputType.Touch then
+
             dragging = true
-            dragStart = input.Position
-            startPos = toggle.Position
+
+            dragStart =
+                input.Position
+
+            startPos =
+                toggle.Position
+
             input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then dragging = false end
+
+                if input.UserInputState ==
+                    Enum.UserInputState.End then
+
+                    dragging = false
+
+                end
+
             end)
+
         end
+
     end)
+
     toggle.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+
+        if input.UserInputType ==
+            Enum.UserInputType.MouseMovement
+        or input.UserInputType ==
+            Enum.UserInputType.Touch then
+
             dragInput = input
+
         end
+
     end)
+
     UserInputService.InputChanged:Connect(function(input)
-        if input == dragInput and dragging then update(input) end
+
+        if input == dragInput
+        and dragging then
+
+            update(input)
+
+        end
+
     end)
+
 end
+
+--==================================================
+-- ABRIR / CERRAR
+--==================================================
+
 local open = true
+
 toggle.MouseButton1Click:Connect(function()
+
     open = not open
-    mainFrame.Visible = open
+
+    mainFrame.Visible =
+        open
+
 end)
