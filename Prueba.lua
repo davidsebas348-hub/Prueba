@@ -1762,7 +1762,7 @@ local menuData = {
     ["GAMEPASS"] = {
 
         "MAS ESPACIO PARA EMOTES",
-        "valor",
+        "VALOR",
 
     },
 
