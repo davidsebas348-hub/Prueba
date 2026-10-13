@@ -1,5 +1,7 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text155/refs/heads/main/Text155.lua"))() -- Detectar Rol (importante)
+
 -- ======================
--- SBS HUB COMPLETO FINAL  (TSB)
+-- SBS HUB COMPLETO FINAL  (mm2)
 -- ======================
 
 repeat task.wait() until game:IsLoaded()
@@ -81,12 +83,12 @@ local sliderSettings = {
         step = 1
     },
 
-    VELOCIAD = {
-        variable = "SpeedValue",
-        min = 1,
-        max = 100,
-        default = 16,
-        step = 1
+    TRANSPARENCIA = {
+        variable = "XRAY_TRANSPARENCY",
+        min = 0,
+        max = 1,
+        default = 0.5,
+        step = 0.1
     },
 
     FUEZA = {
@@ -170,7 +172,7 @@ local rightSubtitleIcons = {
 local menuTitleColors = {
 
     ["MAIN"] = Color3.fromRGB(255,255,255),
-    ["ESP"] = Color3.fromRGB(0,255,255),
+    ["ESP"] = Color3.fromRGB(170, 0, 255),
     ["COMBATE"] = Color3.fromRGB(255,0,0),
     ["AUTO"] = Color3.fromRGB(0,255,0),
     ["TELEPORT"] = Color3.fromRGB(0,170,255),
@@ -187,7 +189,7 @@ local menuTitleColors = {
 local leftMenuTextColors = {
 
     ["MAIN"] = Color3.fromRGB(255,255,0),
-    ["ESP"] = Color3.fromRGB(0,255,255),
+    ["ESP"] = Color3.fromRGB(170, 0, 255),
     ["COMBATE"] = Color3.fromRGB(255,0,0),
     ["AUTO"] = Color3.fromRGB(0,255,0),
     ["TELEPORT"] = Color3.fromRGB(0,170,255),
@@ -205,6 +207,7 @@ local leftMenuTextColors = {
 local rightButtonTextColors = {
 
     ["SPEED"] = Color3.fromRGB(255,255,0),
+    ["ESP GUN"] = Color3.fromRGB(255, 255, 0),
     ["JUMPPOWER"] = Color3.fromRGB(0,255,255),
     ["GRAVITY"] = Color3.fromRGB(255,100,100),
     ["FLY"] = Color3.fromRGB(0,255,0),
@@ -224,14 +227,16 @@ local buttonDescriptions = {
     ["FLY"] = "Activa el vuelo del jugador.",
     ["FLY SPEED"] = "Cambia la velocidad de movimiento mientras estás volando.",
     ["INVISIBLE"] = "Hace que tu personaje sea invisible para los demás jugadores.",
+    ["DESYINC"] = "Tú ves a tu jugador en una posición diferente, pero los demás no.",
     ["NOCLIP"] = "Permite atravesar paredes y otros objetos.",
     ["LOCALPLAYER"] = "Modifica las opciones relacionadas con tu jugador.",
     ["MAS ESPACIO PARA EMOTES"] = "Tener un total de 8 espacio.",
     ["ESP ULTI"] = "Muestra cuanto tiene de ultime.",
-    ["ESP DEATH COUNTER"] = "Muestra quien tiene el counter de saitama mostrando una💀.",
+    ["ESP PLAYERS"] = "Dependiendo de su color es su rol.",
+    ["NO ESP PARA MI"] = "El ESP no te afecta.",
     ["RESET STATS"] = "Restablece las estadísticas modificadas del jugador.",
     ["QUITAR LOS EFECTOS"] = "Puede causar bugs en el juego.",
-    ["BAJAR LOS GRÁFICOS"] = "Baja demasiado los gráficos pada tener un buen rendimiento.",
+    ["BAJAR LOS GRÁFICOS"] = "Baja demasiado los gráficos para tener un buen rendimiento.",
     ["RESET TATS"] = ".",
 }
 
@@ -657,7 +662,7 @@ local textboxButtons = {
         url = nil
     },
 
-    ["XRAY-TRANSPARENCY"] = {
+    ["XRAY-TRANSPY"] = {
         variable = "XRAY_TRANSPARENCY",
         url = "https://raw.githubusercontent.com/davidsebas348-hub/Text433/refs/heads/main/Text433.lua"
     },
@@ -1762,10 +1767,11 @@ end
 local menuOrder = {
     "MAIN",
     "ESP",
-    "COMBATE",
-    "GAMEPASS",
-    "AUTO",
+    "INOCENTE",
+    "SHERIFF",
+    "ASESINO",
     "TELEPORT",
+    "FARM",
     "LABELS",
     "FPS"
 }
@@ -1789,10 +1795,12 @@ local menuData = {
     },
 
     ["ESP"] = {
-
-        "ESP DEATH COUNTER",
-        "ESP ULTI",
-
+        "ESP JUGADORES",
+        "ESP NOMBRE",
+        "NO ESP PARA MI",
+        "ESP GUN", 
+        "XRAY",
+        "TRANSPARENCIA",
     },
 
     ["GAMEPASS"] = {
@@ -2158,28 +2166,28 @@ for i,menu in ipairs(menuOrder) do
                             end)
 
                         elseif opt ==
-                            "AUTO WALLCOMBO" then
+                            "ESP JUGADORES" then
 
                             pcall(function()
-                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text233/refs/heads/main/Text233.lua"))()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text154/refs/heads/main/Text154.lua"))()
                             end)
 
                         elseif opt ==
-                            "GODMODE" then
+                            "NO ESP PARA MI" then
 
                             pcall(function()
-                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text497/refs/heads/main/Text497.lua"))()
+                                loadstring("getgenv().HIGHLIGHT_ME = not getgenv().HIGHLIGHT_ME")()
                             end)
 
                         elseif opt ==
-                            "CONTRATAQUE AUTOMÁTICO A M1" then
+                            "ESP GUN" then
 
                             pcall(function()
-                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text502/refs/heads/main/Text502.lua"))()
+                                loadstring(game:HttpGet(""))()
                             end)
 
                         elseif opt ==
-                            "ESP ULTI" then
+                            "ESP NOMBRE" then
 
                             pcall(function()
                                 loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text503/refs/heads/main/Text503.lua"))()
