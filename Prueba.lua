@@ -91,7 +91,7 @@ local sliderSettings = {
         step = 0.1
     },
 
-    TRANSPARENCIA DE LA HITBOX = {
+    HITBOX-TRANSPARENCIA = {
         variable = "HitboxTransparency",
         min = 0,
         max = 1,
@@ -1840,7 +1840,7 @@ local menuData = {
         "ELIGIR JUGADOR",
         "AUMENTAR HITBOX",
         "TAMAÑO",
-        "TRANSPARENCIA DE LA HITBOX",
+        "HITBOX-TRANSPARENCIA",
 
     },
 
