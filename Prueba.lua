@@ -647,8 +647,8 @@ local textboxButtons = {
         url = nil
     },
 
-    ["COOLDOWN DE LA ESPECIAL"] = {
-        variable = "SpecialCooldown",
+    ["ELIGIR JUGADOR"] = {
+        variable = "TARGET",
         url = nil
     },
 
@@ -1828,7 +1828,6 @@ local menuData = {
         "AUTO MATAR A TODOS",
         "MATAR SHERIFF",
         "AUTO MATAR SHERIFF",
-        "AUTO MATAR JUGADOR",
         "MATAR JUGADOR",
         "ELIGIR JUGADOR",
 
@@ -2231,10 +2230,10 @@ for i,menu in ipairs(menuOrder) do
                             end)
 
                         elseif opt ==
-                            "ESP DEATH COUNTER" then
+                            "MATAR JUGADOR" then
 
                             pcall(function()
-                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text249/refs/heads/main/Text249.lua"))()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text511/refs/heads/main/Text511.lua"))()
                             end)
 
                         elseif opt ==
