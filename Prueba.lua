@@ -173,6 +173,9 @@ local menuTitleColors = {
 
     ["MAIN"] = Color3.fromRGB(255,255,255),
     ["ESP"] = Color3.fromRGB(170, 0, 255),
+    ["ASESINO"] = Color3.fromRGB(255,0,0),
+    ["INOCENTE"] = Color3.fromRGB(0,255,0),
+    ["SHERIFF"] = Color3.fromRGB(0, 120, 255),
     ["COMBATE"] = Color3.fromRGB(255,0,0),
     ["AUTO"] = Color3.fromRGB(0,255,0),
     ["TELEPORT"] = Color3.fromRGB(0,170,255),
@@ -190,8 +193,9 @@ local leftMenuTextColors = {
 
     ["MAIN"] = Color3.fromRGB(255,255,0),
     ["ESP"] = Color3.fromRGB(170, 0, 255),
-    ["COMBATE"] = Color3.fromRGB(255,0,0),
-    ["AUTO"] = Color3.fromRGB(0,255,0),
+    ["ASESINO"] = Color3.fromRGB(255,0,0),
+    ["INOCENTE"] = Color3.fromRGB(0,255,0),
+    ["SHERIFF"] = Color3.fromRGB(0, 120, 255),
     ["TELEPORT"] = Color3.fromRGB(0,170,255),
     ["LABELS"] = Color3.fromRGB(255,255,0),
     ["FPS"] = Color3.fromRGB(255,0,255),
@@ -1817,14 +1821,14 @@ local menuData = {
 
     },
 
-    ["COMBATE"] = {
-        "AUTO UPPERCUT",
-        "AUTO DOWNLAP",
-        "AUTO WALLCOMBO",
-        "CONTRATAQUE AUTOMÁTICO A M1",
-        "DISTANCIA DE LA DETECCIÓN DE M1",
-        "BLOQUEO AUTOMÁTICO A M1",
-        "DISTANCIA DE LA DETECCIÓN DEL M1",
+    ["ASESINO"] = {
+        "MATAR A TODOS",
+        "AUTO MATAR A TODOS",
+        "MATAR SHERIFF",
+        "AUTO MATAR SHERIFF",
+        "AUTO MATAR JUGADOR",
+        "MATAR JUGADOR",
+        "ELIGIR JUGADOR",
 
     },
 
@@ -1837,15 +1841,16 @@ local menuData = {
     },
 
     ["LABELS"] = {
-
         "CONTADOR DE PING",
         "CONTADOR DE FPS",
+        "INDICADOR DE QUIEN ES SHERIFF",
+        "INDICADOR DE QUIEN ES ASESINO",
+        "ALERTA CUANDO APARECE LA GUN",
 
     },
 
     ["FPS"] = {
         "BAJAR LOS GRÁFICOS",
-        "QUITAR LOS EFECTOS",
         "CAMBIAR FPS",
 
     },
@@ -2183,14 +2188,14 @@ for i,menu in ipairs(menuOrder) do
                             "ESP GUN" then
 
                             pcall(function()
-                                loadstring(game:HttpGet(""))()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text510/refs/heads/main/Text510.lua"))()
                             end)
 
                         elseif opt ==
                             "ESP NOMBRE" then
 
                             pcall(function()
-                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text503/refs/heads/main/Text503.lua"))()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text509/refs/heads/main/Text509.lua"))()
                             end)
 
                         elseif opt ==
@@ -2208,17 +2213,19 @@ for i,menu in ipairs(menuOrder) do
                             end)
 
                         elseif opt ==
-                            "BLOQUEO AUTOMÁTICO A M1" then
+                            "MATAR SHERIFF" then
 
                             pcall(function()
-                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text241/refs/heads/main/Text241.lua"))()
+                                getgenv().TARGET = "Sheriff"
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text16/refs/heads/main/Text16.lua"))()
                             end)
 
                         elseif opt ==
-                            "MAS ESPACIO PARA EMOTES" then
+                            "MATAR A TODOS" then
 
                             pcall(function()
-                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text504/refs/heads/main/Text504.lua"))()
+                                getgenv().TARGET = "All"
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text16/refs/heads/main/Text16.lua"))()
                             end)
 
                         elseif opt ==
