@@ -91,7 +91,7 @@ local sliderSettings = {
         step = 0.1
     },
 
-    TRANSPARENCIA  = {
+    TRANSPARENCIA DE LA HITBOX = {
         variable = "HitboxTransparency",
         min = 0,
         max = 1,
@@ -295,6 +295,12 @@ local topTitles = {
     ["AUMENTAR HITBOX"] = "HITBOX",
     ["SPEED"] = "PLAYER",
 
+}
+
+local topTitleColors = {
+    ["¡DETECTABLE!"] = Color3.fromRGB(255, 0, 0), -- Rojo
+    ["TELEPRT"] = Color3.fromRGB(0, 170, 255), -- Azul
+    ["PLAYR"] = Color3.fromRGB(0, 255, 0), -- Verde
 }
 
 local customTitles = {
@@ -1834,7 +1840,7 @@ local menuData = {
         "ELIGIR JUGADOR",
         "AUMENTAR HITBOX",
         "TAMAÑO",
-        "TRANSPARENCIA ",
+        "TRANSPARENCIA DE LA HITBOX",
 
     },
 
@@ -2100,8 +2106,8 @@ for i,menu in ipairs(menuOrder) do
                         topTitles[opt]
 
                     section.TextColor3 =
-                        Color3.fromRGB(
-                            255,255,255
+    topTitleColors[topTitles[opt]]
+    or Color3.fromRGB(255,255,255)
                         )
 
                     section.Font =
