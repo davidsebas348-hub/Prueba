@@ -1304,6 +1304,10 @@ local function createSlider(parent, y, settings)
     knob.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     knob.BorderSizePixel = 0
 
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(1, 0)
+    corner.Parent = knob
+
     local dragging = false
     local activeInput = nil
 
