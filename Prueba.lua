@@ -2251,20 +2251,17 @@ for i,menu in ipairs(menuOrder) do
                             end)
 
                         elseif opt ==
-                            "LAG SERVER (EQUIPAR BOMBA)" then
+                            "AUTO MATAR A TODOS" then
 
                             pcall(function()
-                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text470/refs/heads/main/Text470.lua"))()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text512/refs/heads/main/Text512.lua"))()
                             end)
 
                         elseif opt ==
-                            "ESTAR EN LA ETAPA 99.900M" then
-
-                            getgenv().StageNumber =
-                                99999000000
+                            "AUTO MATAR SHERIFF" then
 
                             pcall(function()
-                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text66/refs/heads/main/Text66.lua"))()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text513/refs/heads/main/Text513.lua"))()
                             end)
 
                         elseif opt ==
