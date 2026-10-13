@@ -75,11 +75,11 @@ local iconPositions = {
 --==================================================
 
 local sliderSettings = {
-    VALOR = {
-        variable = "SliderValue",
+    TAMAÑO = {
+        variable = "HitboxSize",
         min = 1,
         max = 150,
-        default = 46,
+        default = 10,
         step = 1
     },
 
@@ -91,12 +91,12 @@ local sliderSettings = {
         step = 0.1
     },
 
-    FUEZA = {
-        variable = "ForceValue",
+    TRANSPARENCIA  = {
+        variable = "HitboxTransparency",
         min = 0,
-        max = 500,
-        default = 50,
-        step = 5
+        max = 1,
+        default = 0.8,
+        step = 0.1
     }
 }
 
@@ -215,6 +215,8 @@ local rightButtonTextColors = {
     ["ESP GUN"] = Color3.fromRGB(255, 255, 0),
     ["JUMPPOWER"] = Color3.fromRGB(0,255,255),
     ["GRAVITY"] = Color3.fromRGB(255,100,100),
+    ["ROBAR GUN"] = Color3.fromRGB(255,0,0),
+    ["AUTO ROBAR GUN"] = Color3.fromRGB(255,0,0),
     ["FLY"] = Color3.fromRGB(0,255,0),
     ["LOCALPLAYER"] = Color3.fromRGB(255,0,255),
 
@@ -235,7 +237,7 @@ local buttonDescriptions = {
     ["DESYINC"] = "Tú ves a tu jugador en una posición diferente, pero los demás no.",
     ["NOCLIP"] = "Permite atravesar paredes y otros objetos.",
     ["LOCALPLAYER"] = "Modifica las opciones relacionadas con tu jugador.",
-    ["MAS ESPACIO PARA EMOTES"] = "Tener un total de 8 espacio.",
+    ["TRANSPARENCIA"] = "Solo se aumenta la hitbox cuando seas asesino.",
     ["ESP ULTI"] = "Muestra cuanto tiene de ultime.",
     ["ESP JUGADORES"] = "Dependiendo de su color es su rol.",
     ["NO ESP PARA MI"] = "El ESP no te afecta.",
@@ -290,7 +292,7 @@ local topTitles = {
 
     ["ROBAR GUN"] = "¡DETECTABLES!",
     ["TP T"] = "TELEPORT",
-    ["AUTO GANAR EN LA HABILIDAD Juicio Final"] = "GANAR",
+    ["AUMENTAR HITBOX"] = "HITBOX",
     ["SPEED"] = "PLAYER",
 
 }
@@ -1830,6 +1832,9 @@ local menuData = {
         "AUTO MATAR SHERIFF",
         "MATAR JUGADOR",
         "ELIGIR JUGADOR",
+        "AUMENTAR HITBOX",
+        "TAMAÑO",
+        "TRANSPARENCIA ",
 
     },
 
@@ -2244,10 +2249,10 @@ for i,menu in ipairs(menuOrder) do
                             end)
 
                         elseif opt ==
-                            "QUITAR LOS EFECTOS" then
+                            "AUMENTAR HITBOX" then
 
                             pcall(function()
-                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text508/refs/heads/main/Text508.lua"))()
+                                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text514/refs/heads/main/Text514.lua"))()
                             end)
 
                         elseif opt ==
