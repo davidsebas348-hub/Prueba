@@ -174,6 +174,7 @@ local menuTitleColors = {
     ["MAIN"] = Color3.fromRGB(255,255,255),
     ["ESP"] = Color3.fromRGB(170, 0, 255),
     ["ASESINO"] = Color3.fromRGB(255,0,0),
+    ["¡DETECTABLES!"] = Color3.fromRGB(255,0,0),
     ["INOCENTE"] = Color3.fromRGB(0,255,0),
     ["SHERIFF"] = Color3.fromRGB(0, 120, 255),
     ["COMBATE"] = Color3.fromRGB(255,0,0),
@@ -236,7 +237,7 @@ local buttonDescriptions = {
     ["LOCALPLAYER"] = "Modifica las opciones relacionadas con tu jugador.",
     ["MAS ESPACIO PARA EMOTES"] = "Tener un total de 8 espacio.",
     ["ESP ULTI"] = "Muestra cuanto tiene de ultime.",
-    ["ESP PLAYERS"] = "Dependiendo de su color es su rol.",
+    ["ESP JUGADORES"] = "Dependiendo de su color es su rol.",
     ["NO ESP PARA MI"] = "El ESP no te afecta.",
     ["RESET STATS"] = "Restablece las estadísticas modificadas del jugador.",
     ["QUITAR LOS EFECTOS"] = "Puede causar bugs en el juego.",
@@ -287,7 +288,7 @@ local doubleButtons = {
 
 local topTitles = {
 
-    ["ACTIVAR MODFICACIÓN"] = "MODIFICAR TOOLS",
+    ["ROBAR GUN"] = "¡DETECTABLES!",
     ["TP T"] = "TELEPORT",
     ["AUTO GANAR EN LA HABILIDAD Juicio Final"] = "GANAR",
     ["SPEED"] = "PLAYER",
@@ -442,7 +443,7 @@ local buttonTitles = {
     ["NOMBRE DE EL JUGADOR"] = "JUGADORES",
 
     ["AUTO SACAR VOLANDO A TODOS"] = "FLING",
-    ["AUTO MATAR A TODOS"] = "KILL",
+    ["AUTO MATAR A T"] = "KILL",
     ["LAG SERVER (EQUIPAR BOMBA)"] = "SERVER",
 
     ["PLAYER NA"] = "FLING",
@@ -504,13 +505,13 @@ local noToggleButtons = {
     ["OBTENER SHIFTLOCK"] = true,
     ["TP A JUGADOR"] = true,
     ["MULTI SALTOS INFINITOS"] = true,
-    ["MAS ESPACIO PARA EMOTES"] = true,
-    ["AUTO COMPLETAR"] = true,
+    ["ROBAR GUN"] = true,
+    ["AGARRAR GUN"] = true,
     ["TP TO PLAYER"] = true,
     ["FLING PLAYER"] = true,
-    ["OBTENER 999 DE SALTOS"] = true,
-    ["SALTAR TODO"] = true,
-    ["OBTENER SKIPS (Saltos)"] = true,
+    ["MATAR SHERIFF"] = true,
+    ["MATAR JUGADOR"] = true,
+    ["MATAR A TODOS"] = true,
     ["BAJAR LOS GRÁFICOS"] = true,
     ["QUITAR LOS EFECTOS"] = true,
 
@@ -1814,10 +1815,11 @@ local menuData = {
 
     },
 
-    ["AUTO"] = {
-
-        "AUTO RECOGER OBJETOS",
-        "AUTO ABRIR PUERTAS",
+    ["INOCENTE"] = {
+        "AGARRAR GUN",
+        "AUTO AGARRAR GUN",
+        "ROBAR GUN",
+        "AUTO ROBAR GUN", 
 
     },
 
@@ -2363,7 +2365,7 @@ for i,menu in ipairs(menuOrder) do
                             end)
 
                         elseif opt ==
-                            "X-RAY" then
+                            "XRAY" then
 
                             pcall(function()
                                 loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text147/refs/heads/main/Text147.lua"))()
