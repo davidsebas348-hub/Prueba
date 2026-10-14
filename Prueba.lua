@@ -83,7 +83,7 @@ local sliderSettings = {
         step = 1
     },
 
-    ["VISIBILIDAD"] = {
+    ["TRANSPARENCIA"] = {
         variable = "XRAY_TRANSPARENCY",
         min = 0,
         max = 1,
@@ -91,7 +91,7 @@ local sliderSettings = {
         step = 0.1
     },
 
-    ["TRANSPARENCIA"] = {
+    ["HITBOX-TRANSPARENCIA"] = {
         variable = "HitboxTransparency",
         min = 0,
         max = 1,
@@ -2108,7 +2108,6 @@ for i,menu in ipairs(menuOrder) do
                     section.TextColor3 =
     topTitleColors[topTitles[opt]]
     or Color3.fromRGB(255,255,255)
-                        )
 
                     section.Font =
                         Enum.Font.GothamBold
