@@ -75,7 +75,7 @@ local iconPositions = {
 --==================================================
 
 local sliderSettings = {
-    TAMAÑO = {
+    ["TAMAÑO"] = {
         variable = "HitboxSize",
         min = 1,
         max = 150,
@@ -83,7 +83,7 @@ local sliderSettings = {
         step = 1
     },
 
-    VISIBILIDAD = {
+    ["VISIBILIDAD"] = {
         variable = "XRAY_TRANSPARENCY",
         min = 0,
         max = 1,
@@ -91,7 +91,7 @@ local sliderSettings = {
         step = 0.1
     },
 
-    TRANSPARENCIA = {
+    ["TRANSPARENCIA"] = {
         variable = "HitboxTransparency",
         min = 0,
         max = 1,
