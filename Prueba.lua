@@ -83,7 +83,7 @@ local sliderSettings = {
         step = 1
     },
 
-    TRANSPARENCIA = {
+    VISIBILIDAD = {
         variable = "XRAY_TRANSPARENCY",
         min = 0,
         max = 1,
@@ -91,7 +91,7 @@ local sliderSettings = {
         step = 0.1
     },
 
-    HITBOX_TRANSPARENCIA = {
+    TRANSPARENCIA = {
         variable = "HitboxTransparency",
         min = 0,
         max = 1,
@@ -1813,7 +1813,7 @@ local menuData = {
         "NO ESP PARA MI",
         "ESP GUN", 
         "XRAY",
-        "TRANSPARENCIA",
+        "VISIBILIDAD",
     },
 
     ["GAMEPASS"] = {
@@ -1840,7 +1840,7 @@ local menuData = {
         "ELIGIR JUGADOR",
         "AUMENTAR HITBOX",
         "TAMAÑO",
-        "HITBOX_TRANSPARENCIA",
+        "TRANSPARENCIA",
 
     },
 
